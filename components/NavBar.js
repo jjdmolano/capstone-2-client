@@ -15,30 +15,30 @@ export default function NavBar() {
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="mr-auto">
-                <Link href="#home">
+                <Link href="/categories">
                     <a className="nav-link" role="button">Categories</a>
                 </Link>
-                <Link href="#features">
+                <Link href="/records">
                     <a className="nav-link" role="button">Records</a>
                 </Link>
-                <Link href="#pricing">
+                <Link href="/trends">
                     <a className="nav-link" role="button">Trends</a>
                 </Link>
-                <Link href="#pricing">
+                <Link href="/breakdown">
                     <a className="nav-link" role="button">Breakdown</a>
                 </Link>
             </Nav>
             <Nav>
             {(user.id === null)
             ? <>
-                <Link href="#pricing">
+                <Link href="/login">
                     <a className="nav-link" role="button">Login</a>
                 </Link>
-                <Link href="#">
+                <Link href="/register">
                     <a className="nav-link" role="button">Register</a>
                 </Link>
             </>
-            : <Link href="#pricing">
+            : <Link href="/logout">
                     <a className="nav-link" role="button">Logout</a>
             </Link>
             }
