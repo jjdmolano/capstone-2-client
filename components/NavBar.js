@@ -8,7 +8,7 @@ export default function NavBar() {
     const { user } = useContext(UserContext)
 
     return(
-    <Navbar bg="dark" expand="lg" variant="dark">
+    <Navbar bg="dark" expand="lg"  className="mb-5" variant="dark">
         <Link href="/">
             <a className="navbar-brand">Budget Tracker</a>
         </Link>

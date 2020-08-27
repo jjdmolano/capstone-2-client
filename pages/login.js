@@ -37,7 +37,7 @@ export default function login() {
                     setUser({
                         id: data._id
                     })
-                    Router.push('/')
+                    Router.push('/records')
                 })
             } else {
                 Router.push('/error')
