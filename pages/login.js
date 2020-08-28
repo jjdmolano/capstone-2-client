@@ -1,8 +1,8 @@
-import { useState, useEffect, useContext } from 'react'
+import { useState, useContext } from 'react'
 import UserContext from '../UserContext'
 import Router from 'next/router'
+import { GoogleLogin } from 'react-google-login'
 import { Form, Button } from 'react-bootstrap'
-import Swal from 'sweetalert2'
 
 export default function login() {
     const { setUser } = useContext(UserContext)
@@ -45,6 +45,31 @@ export default function login() {
         })
     }
 
+    // Google login
+    const captureLoginResponse = (res) => {
+        const payload = {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({tokenId: res.tokenId})
+        }
+
+        fetch('http://localhost:4000/api/users/verify-google-id-token', payload)
+        .then((res) => res.json())
+        .then(data => {
+            if (typeof data.accessToken !== 'undefined') {
+                localStorage.setItem('token', data.accessToken)
+                setUser({
+                    id: data._id
+                })
+                Router.push('/records')
+            }else{
+                if (data.error == 'google-auth-error') {
+                    Swal.fire('Google Auth Error', 'Google authentication procedure failed.', error)
+                }
+            }
+        })
+    }
+
     return (
         <>
         <Form onSubmit={(e) => authenticate(e)}>
@@ -58,6 +83,15 @@ export default function login() {
             </Form.Group>
             <Button variant="primary" type="submit" >Submit</Button>
         </Form>
+        <p>or</p>
+        <GoogleLogin
+        render={renderProps => (
+            <Button onClick={renderProps.onClick} disabled={renderProps.disabled} variant="outline-success">Login using Google Account</Button>
+        )}
+        clientId="668311413806-b1kj21kiv4doqb878flbm5pd2uo7r51m.apps.googleusercontent.com"
+        onSuccess={captureLoginResponse}
+        onFailure={captureLoginResponse}
+        cookiePolicy={'single_host_origin'} />
         </>
     )
 }
