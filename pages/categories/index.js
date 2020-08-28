@@ -4,7 +4,7 @@ import AddCategory from '../../components/AddCategory'
 
 export default function index() {
     const [ name, setName ] = useState('')
-    const [ category, setCategory ] = useState([])
+    const [ categories, setCategories ] = useState([])
 
     // fetch user categories hook
     useEffect(() => {
@@ -16,19 +16,19 @@ export default function index() {
         .then(res => res.json())
         .then(data => {
             setName(data.firstName)
-            setCategory(data.categories)
+            setCategories(data.categories)
         })
     },[])
 
     return (
         <Container className="mx-5 px-5" >
             <AddCategory />
-            {category.length === 0
+            {categories.length === 0
             ?   <Jumbotron>
                     <p>We couldn't find any categories, {name}. Why not make one above?</p>
                 </Jumbotron>
             :   <ListGroup>
-                {category.map(category => {
+                {categories.map(category => {
                     return (
                         <ListGroup.Item action key={category._id}>
                         <Row>

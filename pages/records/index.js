@@ -4,8 +4,44 @@ import AddRecord from '../../components/AddRecord'
 
 export default function index() {
     const [ name, setName ] = useState('')
-    const [ category, setCategory ] = useState([])
-    const [ record, setRecord ] = useState([])
+    const [ categories, setCategories ] = useState([])
+    const [ records, setRecords ] = useState([])
+
+    // TODO: separated all amounts into another array and added them all
+    // const amountSum = records
+    //     .map(record => record.amount)
+    //     .reduce((total, amount) => total + amount, 0)
+    // console.log(amountSum)
+
+    // TODO: filtered records by income and expense, now to show just them
+    // const incomeRecords = records.filter(record =>
+    //     record.categoryType === 'Income'
+    // )
+    // const expenseRecords = records.filter(record =>
+    //     record.categoryType === 'Expense'
+    // )
+    // console.log(incomeRecords)
+    // console.log(expenseRecords)
+
+    // TODO: filter records by income and expense(convert to negative!) and add them
+
+    // Get sum of all income
+    const incomeSum = records
+        .filter(record => record.categoryType === 'Income')
+        .map(record => record.amount)
+        .reduce((total, amount) => total + amount, 0)
+    console.log(incomeSum)
+
+    // Get sum of all expense
+    const expenseSum = records
+        .filter(record => record.categoryType === 'Expense')
+        .map(record => record.amount)
+        .reduce((total, amount) => total + amount, 0)
+    console.log(expenseSum)
+
+    // Get current total amount for all accounts
+    const totalAmount = incomeSum - expenseSum
+    console.log(totalAmount)
 
     // fetch user records and categories hook
     useEffect(() => {
@@ -17,20 +53,20 @@ export default function index() {
         .then(res => res.json())
         .then(data => {
             setName(data.firstName)
-            setRecord(data.transactions)
-            setCategory(data.categories)
+            setRecords(data.transactions)
+            setCategories(data.categories)
         })
     },[])
 
     return (
         <Container className="mx-5 px-5" >
-            <AddRecord category={category} />
-            {record.length === 0
+            <AddRecord categories={categories} />
+            {records.length === 0
             ?   <Jumbotron>
                     <p>We couldn't find any records, {name}. Why not make one above?</p>
                 </Jumbotron>
             :   <ListGroup>
-                {record.map(record => {
+                {records.map(record => {
                     return (
                         <ListGroup.Item action key={record._id}>
                         <Row>

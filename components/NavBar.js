@@ -8,12 +8,12 @@ export default function NavBar() {
     const { user } = useContext(UserContext)
 
     return(
-    <Navbar bg="dark" expand="lg"  className="mb-5" variant="dark">
+    <Navbar bg="dark" expand="lg" collapseOnSelect className="mb-5" variant="dark">
         <Link href="/">
             <a className="navbar-brand">Budget Tracker</a>
         </Link>
-        <Navbar.Toggle aria-controls="basic-navbar-nav" />
-        <Navbar.Collapse id="basic-navbar-nav">
+        <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+        <Navbar.Collapse id="responsive-navbar-nav">
             <Nav className="mr-auto">
                 <Link href="/categories">
                     <a className="nav-link" role="button">Categories</a>

@@ -4,7 +4,7 @@ import Swal from 'sweetalert2'
 import UserContext from '../UserContext'
 import Router from 'next/router'
 
-export default function AddRecord({category}) {
+export default function AddRecord({categories}) {
     const {user} = useContext(UserContext)
     const [categoryName, setCategoryName] = useState('')
     const [categoryType, setCategoryType] = useState('')
@@ -14,10 +14,10 @@ export default function AddRecord({category}) {
 
     // pre-load category name and type once category prop gets passed hook
     useEffect(()=> {
-        (category.length === 0)
+        (categories.length === 0)
         ? setCategoryName('')
-        : setCategoryName(category[0].categoryName)
-    },[category])
+        : setCategoryName(categories[0].categoryName)
+    },[categories])
 
     // verify record amount hook
     useEffect(()=> {
@@ -28,7 +28,7 @@ export default function AddRecord({category}) {
 
     // auto-set category type after choosing category name hook
     useEffect(()=> {
-        const autoType = category.find(autoType => autoType.categoryName === categoryName)
+        const autoType = categories.find(autoType => autoType.categoryName === categoryName)
         return (
             (autoType === undefined)
             ? setCategoryType('')
@@ -76,7 +76,7 @@ export default function AddRecord({category}) {
                 <Form.Label column className="pl-3" md="auto">Add Transaction:</Form.Label>
                 <Col className="col-auto">
                     <Form.Control as="select" value={categoryName} onChange={e => setCategoryName(e.target.value)} required>
-                        {category.map(category => {
+                        {categories.map(category => {
                           return (
                               <option key={category._id}>{category.categoryName}</option>
                           )
