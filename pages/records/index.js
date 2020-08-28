@@ -1,11 +1,13 @@
-import { useContext, useEffect, useState } from 'react'
-import UserContext from '../../UserContext'
-import { Card, ListGroup } from 'react-bootstrap'
+import { useEffect, useState } from 'react'
+import { Row, Col, ListGroup, Jumbotron, Container } from 'react-bootstrap'
+import AddRecord from '../../components/AddRecord'
 
 export default function index() {
-    const [data, setData] = useState([])
-    const { user } = useContext(UserContext)
+    const [ name, setName ] = useState('')
+    const [ category, setCategory ] = useState([])
+    const [ record, setRecord ] = useState([])
 
+    // fetch user records and categories hook
     useEffect(() => {
         fetch('http://localhost:4000/api/users/details', {
         headers: {
@@ -14,22 +16,39 @@ export default function index() {
         })
         .then(res => res.json())
         .then(data => {
-            setData(data.transactions)
+            setName(data.firstName)
+            setRecord(data.transactions)
+            setCategory(data.categories)
         })
     },[])
 
     return (
-        <>
-        <Card>
-            <h1>{data.firstName}</h1>
-        </Card>
-        <ListGroup>
-            {data.map(category => {
-                return (
-                    <ListGroup.Item key={category._id}>{category.categoryName}</ListGroup.Item>
-                )
-            })}
-        </ListGroup>
-        </>
+        <Container className="mx-5 px-5" >
+            <AddRecord category={category} />
+            {record.length === 0
+            ?   <Jumbotron>
+                    <p>We couldn't find any records, {name}. Why not make one above?</p>
+                </Jumbotron>
+            :   <ListGroup>
+                {record.map(record => {
+                    return (
+                        <ListGroup.Item action key={record._id}>
+                        <Row>
+                            <Col className="col-2">{record.categoryName}</Col>
+                            <Col className="col-2">{record.amount}</Col>
+                            <Col className="col-2">{record.categoryType}</Col>
+                            {record.description.length > 0
+                            ? <Col className="col-2">{record.description}</Col>
+                            : null
+                            }
+                            <Col className="col-2">{record.balanceAfterTransaction}</Col>
+                            <Col className="col-2">{record.dateAdded}</Col>
+                        </Row>
+                        </ListGroup.Item>
+                    )
+                })}
+                </ListGroup>
+            }
+        </Container>
     )
 }

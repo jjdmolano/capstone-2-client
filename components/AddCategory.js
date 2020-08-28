@@ -12,14 +12,13 @@ export default function AddCategory() {
 
     // verify category name hook
     useEffect(()=> {
-        if(categoryName.length < 30 && categoryName.length > 0){
-            setIsActive(true)
-        } else {
-            setIsActive(false)
-        }
+        (categoryName.length < 30 && categoryName.length > 0)
+        ? setIsActive(true)
+        : setIsActive(false)
     }, [categoryName])
 
     function addCategory(e) {
+        e.preventDefault()
         fetch(`http://localhost:4000/api/users/${user.id}/categories`,
         {
             method: 'PUT',
@@ -34,7 +33,19 @@ export default function AddCategory() {
         })
         .then(res => res.json())
         .then(data => {
-            data ? Router.reload : Swal.fire('You have already added this category','error')
+            data
+            ?   Swal.fire({
+                text: 'Added category!',
+                icon: 'success'
+                })
+                .then((result) => {
+                    result.value
+                    ? Router.reload()
+                    : null
+                })
+            :   Swal.fire({
+                text: 'You have already added this category', icon: 'error'
+                })
         })
     }
 
