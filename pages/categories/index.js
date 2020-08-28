@@ -6,6 +6,7 @@ export default function index() {
     const [ name, setName ] = useState('')
     const [ data, setData ] = useState([])
 
+    // fetch user categories hook
     useEffect(() => {
         fetch('http://localhost:4000/api/users/details', {
         headers: {
@@ -23,10 +24,10 @@ export default function index() {
         <Container className="mx-5 px-5" >
             <AddCategory />
             {data.length === 0
-            ? <Jumbotron>
-                <p>We couldn't find any categories, {name}. Why not make one above?</p>
-            </Jumbotron>
-            : <ListGroup>
+            ?   <Jumbotron>
+                    <p>We couldn't find any categories, {name}. Why not make one above?</p>
+                </Jumbotron>
+            :   <ListGroup>
                 {data.map(category => {
                     return (
                         <ListGroup.Item action key={category._id}>
@@ -37,7 +38,7 @@ export default function index() {
                         </ListGroup.Item>
                     )
                 })}
-            </ListGroup>
+                </ListGroup>
             }
         </Container>
     )
