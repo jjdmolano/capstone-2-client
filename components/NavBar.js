@@ -14,20 +14,23 @@ export default function NavBar() {
         </Link>
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
-            <Nav className="mr-auto">
-                <Link href="/categories">
-                    <a className="nav-link" role="button">Categories</a>
-                </Link>
-                <Link href="/records">
-                    <a className="nav-link" role="button">Records</a>
-                </Link>
-                <Link href="/trends">
-                    <a className="nav-link" role="button">Trends</a>
-                </Link>
-                <Link href="/breakdown">
-                    <a className="nav-link" role="button">Breakdown</a>
-                </Link>
-            </Nav>
+            {(user.id === null)
+                ?   null
+                :   <Nav className="mr-auto">
+                    <Link href="/categories">
+                        <a className="nav-link" role="button">Categories</a>
+                    </Link>
+                    <Link href="/records">
+                        <a className="nav-link" role="button">Records</a>
+                    </Link>
+                    <Link href="/trends">
+                        <a className="nav-link" role="button">Trends</a>
+                    </Link>
+                    <Link href="/breakdown">
+                        <a className="nav-link" role="button">Breakdown</a>
+                    </Link>
+                    </Nav>
+            }
             <Nav>
             {(user.id === null)
             ? <>

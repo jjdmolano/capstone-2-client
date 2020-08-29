@@ -32,6 +32,6 @@ export default function DeleteCategoryButton({categoryId}) {
     }
 
     return(
-        <Button variant="danger" onClick={() => deleteCategory(categoryId)} >Delete</Button>
+        <Button variant="danger" block onClick={() => deleteCategory(categoryId)} >Delete</Button>
     )
 }

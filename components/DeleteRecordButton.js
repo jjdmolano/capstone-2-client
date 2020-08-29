@@ -32,6 +32,6 @@ export default function DeleteRecordButton({recordId}) {
     }
 
     return(
-        <Button variant="danger" onClick={() => deleteRecord(recordId)} >Delete</Button>
+        <Button variant="danger" block onClick={() => deleteRecord(recordId)} >Delete</Button>
     )
 }

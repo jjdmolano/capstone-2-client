@@ -14,6 +14,12 @@ export default function index() {
     //     .reduce((total, amount) => total + amount, 0)
     // console.log(amountSum)
 
+    // const [recordDates] = records
+    //     .map(record => record.dateAdded)
+    // console.log(recordDates)
+    // const d = new Date("2020-08-29T09:51:58.990Z")
+    // console.log(d.toLocaleString())
+
     // TODO: filtered records by income and expense, now to show just them
     // const incomeRecords = records.filter(record =>
     //     record.categoryType === 'Income'
@@ -27,21 +33,21 @@ export default function index() {
     // TODO: filter records by income and expense(convert to negative!) and add them
 
     // Get sum of all income
-    const incomeSum = records
-        .filter(record => record.categoryType === 'Income')
-        .map(record => record.amount)
-        .reduce((total, amount) => total + amount, 0)
-    // console.log(incomeSum)
+    // const incomeSum = records
+    //     .filter(record => record.categoryType === 'Income')
+    //     .map(record => record.amount)
+    //     .reduce((total, amount) => total + amount, 0)
+    // // console.log(incomeSum)
 
-    // Get sum of all expenses
-    const expenseSum = records
-        .filter(record => record.categoryType === 'Expense')
-        .map(record => record.amount)
-        .reduce((total, amount) => total + amount, 0)
-    // console.log(expenseSum)
+    // // Get sum of all expenses
+    // const expenseSum = records
+    //     .filter(record => record.categoryType === 'Expense')
+    //     .map(record => record.amount)
+    //     .reduce((total, amount) => total + amount, 0)
+    // // console.log(expenseSum)
 
-    // Get current total amount for all accounts
-    const totalAmount = incomeSum - expenseSum
+    // // Get current total amount for all accounts
+    // const totalAmount = incomeSum - expenseSum
     // console.log(totalAmount)
 
     // fetch user records and categories hook

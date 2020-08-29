@@ -1,5 +1,5 @@
 import { useState, useEffect, useContext } from 'react'
-import { Form, Button, Col } from 'react-bootstrap'
+import { Form, Button, Row, Col } from 'react-bootstrap'
 import Swal from 'sweetalert2'
 import UserContext from '../UserContext'
 import Router from 'next/router'
@@ -72,9 +72,21 @@ export default function AddRecord({categories}) {
 
     return (
         <Form onSubmit={(e) => addRecord(e)} className="pb-2">
-            <Form.Row className="pb-2">
-                <Form.Label column className="pl-3" md="auto">Add Transaction:</Form.Label>
-                <Col className="col-auto">
+        <Form.Row className="pb-2">
+                <Form.Label column className="pl-3 col-auto">Add Transaction:</Form.Label>
+                <Col className="col-6">
+                    <Form.Control type="text" placeholder="Description here" value={description} onChange={e => setDescription(e.target.value)} required >
+                    </Form.Control>
+                </Col>
+                <Form.Label column className="pl-3 col-auto">Amount:</Form.Label>
+                <Col>
+                    <Form.Control type="text" value={amount} onChange={e => setAmount(e.target.value)} required >
+                    </Form.Control>
+                </Col>
+            </Form.Row>
+            <Form.Row>
+                <Form.Label column className="pl-3 col-auto">Category:</Form.Label>
+                <Col className="col-4">
                     <Form.Control as="select" value={categoryName} onChange={e => setCategoryName(e.target.value)} required>
                         {categories.map(category => {
                           return (
@@ -84,26 +96,15 @@ export default function AddRecord({categories}) {
                         }
                     </Form.Control>
                 </Col>
-                <Col className="col-auto">
+                <Form.Label column className="pl-3 col-auto">Type:</Form.Label>
+                <Col className="col-2">
                     <Form.Control type="text" placeholder={categoryType} readOnly />
                 </Col>
-                <Form.Label column className="pl-3" md="auto">Amount:</Form.Label>
-                <Col className="col-auto">
-                    <Form.Control type="text" value={amount} onChange={e => setAmount(e.target.value)} required >
-                    </Form.Control>
-                </Col>
-            </Form.Row>
-            <Form.Row>
-                <Form.Label column className="pl-3" md="auto">Description:</Form.Label>
-                <Col className="col-6">
-                    <Form.Control type="text" placeholder="Add description here (optional)" value={description} onChange={e => setDescription(e.target.value)} required >
-                    </Form.Control>
-                </Col>
-                <Col className="align-self-end">
-                    { isActive === true
-                    ? <Button type="submit" variant="success">Submit</Button>
-                    : <Button type="submit" variant="outline-success" disabled>Submit</Button>}
-                </Col>
+                <Col>
+                { isActive === true
+                ? <Button type="submit" block variant="success">+</Button>
+                : <Button type="submit" block variant="outline-success" disabled>+</Button>}
+            </Col>
             </Form.Row>
         </Form>
     )

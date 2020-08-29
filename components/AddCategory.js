@@ -52,21 +52,21 @@ export default function AddCategory() {
     return (
         <Form onSubmit={(e) => addCategory(e)} className="pb-2">
             <Form.Row>
-                <Form.Label column className="pl-3" md="auto">Add Category:</Form.Label>
-                <Col className="col-5">
+                <Form.Label column className="pl-3 col-auto">Add Category:</Form.Label>
+                <Col className="col-4">
                     <Form.Control type="text" placeholder="Category Name" value={categoryName} onChange={e => setCategoryName(e.target.value)} required />
                 </Col>
-                <Form.Label column className="pl-3" md="auto">Select Type:</Form.Label>
+                <Form.Label column className="pl-3 col-auto">Select Type:</Form.Label>
                 <Col className="col-3">
                     <Form.Control as="select" placeholder="Category Type" value={categoryType} onChange={e => setCategoryType(e.target.value)} required >
                         <option>Expense</option>
                         <option>Income</option>
                     </Form.Control>
                 </Col>
-                <Col className="col-1 pl-4" md="auto">
+                <Col className="pl-4">
                     { isActive === true
-                    ? <Button type="submit" variant="success">Submit</Button>
-                    : <Button type="submit" variant="outline-success" disabled>Submit</Button>}
+                    ? <Button type="submit" block variant="success">+</Button>
+                    : <Button type="submit" block variant="outline-success" disabled>+</Button>}
                 </Col>
             </Form.Row>
         </Form>
