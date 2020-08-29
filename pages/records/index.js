@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
-import { Row, Col, ListGroup, Jumbotron, Container } from 'react-bootstrap'
+import { Jumbotron, Container } from 'react-bootstrap'
 import AddRecord from '../../components/AddRecord'
-import DeleteRecordButton from '../../components/DeleteRecordButton'
+import RecordList from '../../components/RecordList'
 
 export default function index() {
     const [ name, setName ] = useState('')
@@ -61,31 +61,19 @@ export default function index() {
 
     return (
         <Container className="mx-5 px-5" >
-            <AddRecord categories={categories} />
-            {records.length === 0
+            {categories.length === 0
             ?   <Jumbotron>
-                    <p>We couldn't find any records, {name}. Why not make one above?</p>
+                    <p>You need to create a category first before adding a record.</p>
                 </Jumbotron>
-            :   <ListGroup>
-                {records.map(record => {
-                    return (
-                        <ListGroup.Item key={record._id}>
-                        <Row>
-                            <Col className="col-2">{record.categoryName}</Col>
-                            <Col className="col-2">{record.amount}</Col>
-                            <Col className="col-2">{record.categoryType}</Col>
-                            {record.description.length > 0
-                            ? <Col className="col-2">{record.description}</Col>
-                            : null
-                            }
-                            <Col className="col-2">{record.balanceAfterTransaction}</Col>
-                            <Col className="col-2">{record.dateAdded}</Col>
-                            <DeleteRecordButton recordId={record._id} />
-                        </Row>
-                        </ListGroup.Item>
-                    )
-                })}
-                </ListGroup>
+            :   <>
+               <AddRecord categories={categories} />
+                {(records.length === 0)
+                ?   <Jumbotron>
+                        <p>We couldn't find any records, {name}. Why not make one above?</p>
+                    </Jumbotron>
+                :   <RecordList records={records} />
+                }
+                </>
             }
         </Container>
     )

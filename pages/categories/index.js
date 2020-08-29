@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
-import { Row, Col, ListGroup, Jumbotron, Container } from 'react-bootstrap'
+import { Jumbotron, Container } from 'react-bootstrap'
 import AddCategory from '../../components/AddCategory'
-import DeleteCategoryButton from '../../components/DeleteCategoryButton'
+import CategoryList from '../../components/CategoryList'
 
 export default function index() {
     const [ name, setName ] = useState('')
@@ -28,19 +28,7 @@ export default function index() {
             ?   <Jumbotron>
                     <p>We couldn't find any categories, {name}. Why not make one above?</p>
                 </Jumbotron>
-            :   <ListGroup>
-                {categories.map(category => {
-                    return (
-                        <ListGroup.Item key={category._id}>
-                        <Row>
-                            <Col className="col-10">{category.categoryName}</Col>
-                            <Col className="col-2">{category.categoryType}</Col>
-                            <DeleteCategoryButton categoryId={category._id} />
-                        </Row>
-                        </ListGroup.Item>
-                    )
-                })}
-                </ListGroup>
+            :   <CategoryList categories={categories} />
             }
         </Container>
     )
