@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { Row, Col, ListGroup, Jumbotron, Container } from 'react-bootstrap'
 import AddCategory from '../../components/AddCategory'
+import DeleteCategoryButton from '../../components/DeleteCategoryButton'
 
 export default function index() {
     const [ name, setName ] = useState('')
@@ -30,10 +31,11 @@ export default function index() {
             :   <ListGroup>
                 {categories.map(category => {
                     return (
-                        <ListGroup.Item action key={category._id}>
+                        <ListGroup.Item key={category._id}>
                         <Row>
                             <Col className="col-10">{category.categoryName}</Col>
                             <Col className="col-2">{category.categoryType}</Col>
+                            <DeleteCategoryButton categoryId={category._id} />
                         </Row>
                         </ListGroup.Item>
                     )

@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { Row, Col, ListGroup, Jumbotron, Container } from 'react-bootstrap'
 import AddRecord from '../../components/AddRecord'
+import DeleteRecordButton from '../../components/DeleteRecordButton'
 
 export default function index() {
     const [ name, setName ] = useState('')
@@ -30,18 +31,18 @@ export default function index() {
         .filter(record => record.categoryType === 'Income')
         .map(record => record.amount)
         .reduce((total, amount) => total + amount, 0)
-    console.log(incomeSum)
+    // console.log(incomeSum)
 
-    // Get sum of all expense
+    // Get sum of all expenses
     const expenseSum = records
         .filter(record => record.categoryType === 'Expense')
         .map(record => record.amount)
         .reduce((total, amount) => total + amount, 0)
-    console.log(expenseSum)
+    // console.log(expenseSum)
 
     // Get current total amount for all accounts
     const totalAmount = incomeSum - expenseSum
-    console.log(totalAmount)
+    // console.log(totalAmount)
 
     // fetch user records and categories hook
     useEffect(() => {
@@ -68,7 +69,7 @@ export default function index() {
             :   <ListGroup>
                 {records.map(record => {
                     return (
-                        <ListGroup.Item action key={record._id}>
+                        <ListGroup.Item key={record._id}>
                         <Row>
                             <Col className="col-2">{record.categoryName}</Col>
                             <Col className="col-2">{record.amount}</Col>
@@ -79,6 +80,7 @@ export default function index() {
                             }
                             <Col className="col-2">{record.balanceAfterTransaction}</Col>
                             <Col className="col-2">{record.dateAdded}</Col>
+                            <DeleteRecordButton recordId={record._id} />
                         </Row>
                         </ListGroup.Item>
                     )
