@@ -77,7 +77,7 @@ export default function index() {
                 ?   <Jumbotron>
                         <p>We couldn't find any records, {name}. Why not make one above?</p>
                     </Jumbotron>
-                :   <RecordList records={records} />
+                :   <RecordList records={records} categories={categories} />
                 }
                 </>
             }

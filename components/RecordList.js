@@ -1,7 +1,8 @@
 import { Row, Col, ListGroup } from 'react-bootstrap'
 import DeleteRecordButton from '../components/DeleteRecordButton'
+import UpdateRecordModal from './UpdateRecordModal'
 
-export default function RecordList({records}) {
+export default function RecordList({records, categories}) {
     return (
         <ListGroup>
                 {records.map(record => {
@@ -19,13 +20,11 @@ export default function RecordList({records}) {
                             <Col className="col-2">{record.categoryName}</Col>
                             <Col className="col-1">{record.amount}</Col>
                             <Col className="col-2">{record.categoryType}</Col>
-                            {record.description.length > 0
-                            ? <Col className="col-1">{record.description}</Col>
-                            : null
-                            }
+                            <Col className="col-1">{record.description}</Col>
                             <Col className="col-1">{record.balanceAfterTransaction}</Col>
                             <Col className="col-3">{recordDate}</Col>
                             <Col className="col-2">
+                            <UpdateRecordModal record={record} categories={categories} />
                             <DeleteRecordButton recordId={record._id} />
                             </Col>
                         </Row>

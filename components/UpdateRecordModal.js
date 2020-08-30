@@ -1,23 +1,32 @@
 import { useState, useEffect, useContext } from 'react'
-import { Form, Button, Row, Col } from 'react-bootstrap'
-import Swal from 'sweetalert2'
-import UserContext from '../UserContext'
 import Router from 'next/router'
+import UserContext from '../UserContext'
+import { Button, Form, Modal, Col } from 'react-bootstrap'
+import Swal from 'sweetalert2'
 
-export default function AddRecord({categories}) {
+export default function UpdateRecordButton({record, categories}) {
     const {user} = useContext(UserContext)
     const [categoryName, setCategoryName] = useState('')
     const [categoryType, setCategoryType] = useState('')
-    const [amount, setAmount] = useState(0)
+    const [amount, setAmount] = useState('')
     const [description, setDescription] = useState('')
     const [isActive, setIsActive] = useState(false)
-
+    const [ show, setShow ] = useState(false)
+    const showModal = () => setShow(true)
+    const closeModal = () => setShow(false)
     // pre-load category name and type once category prop gets passed hook
     useEffect(()=> {
         (categories.length === 0)
         ? setCategoryName('')
-        : setCategoryName(categories[0].categoryName)
+        : setCategoryName(record.categoryName)
     },[categories])
+
+    // pre-load description once category prop gets passed hook
+    useEffect(()=> {
+        (description.length === 0)
+        ? setDescription('')
+        : setDescription(record.description)
+    },[description])
 
     // verify record amount hook
     useEffect(()=> {
@@ -36,27 +45,27 @@ export default function AddRecord({categories}) {
         )
     },[categoryName])
 
-    function addRecord(e) {
+    const updateRecord = (e) => {
         e.preventDefault()
-        fetch(`http://localhost:4000/api/users/${user.id}/transactions`,
-        {
+        fetch(`http://localhost:4000/api/users/${user.id}/tr/${record._id}`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': `Bearer ${localStorage.getItem('token')}`
+                Authorization: `Bearer ${localStorage.getItem('token')}`
             },
             body: JSON.stringify({
+                dateAdded: record.dateAdded,
                 categoryName: categoryName,
                 categoryType: categoryType,
                 amount: amount,
                 description: description
             })
         })
-        .then(res => res.json())
-        .then(data => {
+        .then((res => res.json()))
+        .then((data) => {
             data
             ?   Swal.fire({
-                text: 'Added record!',
+                text: 'Updated record!',
                 icon: 'success'
                 })
                 .then((result) => {
@@ -65,21 +74,28 @@ export default function AddRecord({categories}) {
                     : null
                 })
             :   Swal.fire({
-                text: 'Error!', icon: 'error'
+                text: 'Update error!', icon: 'error'
                 })
         })
     }
 
-    return (
-        <Form onSubmit={(e) => addRecord(e)} className="pb-2">
-        <Form.Row className="pb-2">
-                <Form.Label column className="pl-3 col-auto">Add Transaction:</Form.Label>
+    return(
+        <>
+        <Button variant="secondary" block onClick={showModal}>Update</Button>
+        <Modal show={show} onHide={closeModal} centered size="lg">
+            <Modal.Header closeButton>
+                <Modal.Title>Update Record</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+            <Form onSubmit={(e) => updateRecord(e)}>
+            <Form.Row className="pb-2">
+                <Form.Label column className="pl-3 col-auto">Update Transaction:</Form.Label>
                 <Col className="col-6">
-                    <Form.Control type="text" placeholder="Description here" value={description} onChange={e => setDescription(e.target.value)} required />
+                    <Form.Control type="text" placeholder={record.description} value={description} onChange={e => setDescription(e.target.value)} required />
                 </Col>
                 <Form.Label column className="pl-3 col-auto">Amount:</Form.Label>
                 <Col>
-                    <Form.Control type="text" value={amount} onChange={e => setAmount(e.target.value)} required />
+                    <Form.Control type="text" placeholder={record.amount} value={amount} onChange={e => setAmount(e.target.value)} required />
                 </Col>
             </Form.Row>
             <Form.Row>
@@ -104,6 +120,9 @@ export default function AddRecord({categories}) {
                 : <Button type="submit" block variant="outline-success" disabled>+</Button>}
             </Col>
             </Form.Row>
-        </Form>
+            </Form>
+            </Modal.Body>
+        </Modal>
+        </>
     )
 }
