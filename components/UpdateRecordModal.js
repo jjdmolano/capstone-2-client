@@ -6,6 +6,7 @@ import Swal from 'sweetalert2'
 
 export default function UpdateRecordButton({record, categories}) {
     const {user} = useContext(UserContext)
+    const [categoryId, setCategoryId] = useState('')
     const [categoryName, setCategoryName] = useState('')
     const [categoryType, setCategoryType] = useState('')
     const [amount, setAmount] = useState('')
@@ -23,7 +24,7 @@ export default function UpdateRecordButton({record, categories}) {
 
     // verify record amount hook
     useEffect(()=> {
-        ((amount > 0 && isNaN(amount) === false) && (categoryType.length > 0 && categoryName.length > 0))
+        ((amount.length > 0 && isNaN(amount) === false) && (categoryType.length > 0 && categoryName.length > 0))
         ? setIsActive(true)
         : setIsActive(false)
     }, [amount, categoryName, categoryType])
@@ -38,6 +39,23 @@ export default function UpdateRecordButton({record, categories}) {
         )
     },[categoryName])
 
+    // auto-set category ID after choosing category name hook
+    useEffect(()=> {
+        const autoId = categories.find(autoId => autoId.categoryName === categoryName)
+        return (
+            (autoId === undefined)
+            ? setCategoryId('')
+            : setCategoryId(autoId._id)
+        )
+    },[categoryName])
+
+    // set record amount to negative if category is expense hook
+    useEffect(()=> {
+        ((categoryType === 'Expense' && amount > 0 && isNaN(amount) === false))
+        ? setAmount(-amount)
+        : setAmount(amount)
+    },[amount, categoryType])
+
     const updateRecord = (e) => {
         e.preventDefault()
         fetch(`http://localhost:4000/api/users/${user.id}/tr/${record._id}`, {
@@ -47,6 +65,7 @@ export default function UpdateRecordButton({record, categories}) {
                 Authorization: `Bearer ${localStorage.getItem('token')}`
             },
             body: JSON.stringify({
+                categoryId: categoryId,
                 categoryName: categoryName,
                 categoryType: categoryType,
                 amount: amount,
