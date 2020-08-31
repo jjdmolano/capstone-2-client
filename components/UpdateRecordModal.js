@@ -21,13 +21,6 @@ export default function UpdateRecordButton({record, categories}) {
         : setCategoryName(record.categoryName)
     },[categories])
 
-    // pre-load description once category prop gets passed hook
-    useEffect(()=> {
-        (description.length === 0)
-        ? setDescription('')
-        : setDescription(record.description)
-    },[description])
-
     // verify record amount hook
     useEffect(()=> {
         ((amount > 0 && isNaN(amount) === false) && (categoryType.length > 0 && categoryName.length > 0))
@@ -54,7 +47,6 @@ export default function UpdateRecordButton({record, categories}) {
                 Authorization: `Bearer ${localStorage.getItem('token')}`
             },
             body: JSON.stringify({
-                dateAdded: record.dateAdded,
                 categoryName: categoryName,
                 categoryType: categoryType,
                 amount: amount,
