@@ -36,15 +36,26 @@ export default function AddCategory() {
             data
             ?   Swal.fire({
                 text: 'Added category!',
-                icon: 'success'
+                icon: 'success',
+                timer: 1000,
+                timerProgressBar: true,
+                showConfirmButton: false
                 })
                 .then((result) => {
-                    result.value
+                    result.dismiss === Swal.DismissReason.timer
                     ? Router.reload()
-                    : null
+                    : Router.reload()
                 })
             :   Swal.fire({
-                text: 'You have already added this category', icon: 'error'
+                text: 'You have already added this category', icon: 'error',
+                timer: 1000,
+                timerProgressBar: true,
+                showConfirmButton: false
+                })
+                .then((result) => {
+                    result.dismiss === Swal.DismissReason.timer
+                    ? Router.reload()
+                    : Router.reload()
                 })
         })
     }

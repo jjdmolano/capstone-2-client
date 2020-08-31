@@ -1,7 +1,7 @@
 import { Line } from 'react-chartjs-2'
 
 export default function LineChart({records}) {
-    // Map and sort records by date added. Sort is needed since update function is pull then push
+    // Map and sort records by date added. Sort just to make sure records are chronological
     const chartDates = records.map(record => new Date(record.dateAdded).toLocaleString('en-US',{
         month:'long',
         day:'numeric',
@@ -9,14 +9,15 @@ export default function LineChart({records}) {
     }))
     .sort((a,b) => b - a)
 
-    const chartLabels = records.map(record => `${record.description} (${record.categoryName})`)
-    const chartAmounts = records.map(record => record.amount)
+    // array for balance per transaction
+    let chartAmounts = records.map(record => record.amount),sum
+    chartAmounts = chartAmounts.map(recordAmount => sum = (sum || 0) + recordAmount)
 
     return (
         <Line
             data={{
                 datasets:[{
-                    label: 'Transactions',
+                    label: 'Balance',
                     fill: false,
                     data: chartAmounts,
                     backgroundColor: 'darkBlue',

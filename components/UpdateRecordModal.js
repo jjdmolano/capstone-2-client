@@ -58,15 +58,27 @@ export default function UpdateRecordButton({record, categories}) {
             data
             ?   Swal.fire({
                 text: 'Updated record!',
-                icon: 'success'
+                icon: 'success',
+                timer: 1000,
+                timerProgressBar: true,
+                showConfirmButton: false
                 })
                 .then((result) => {
-                    result.value
+                    result.dismiss === Swal.DismissReason.timer
                     ? Router.reload()
-                    : null
+                    : Router.reload()
                 })
             :   Swal.fire({
-                text: 'Update error!', icon: 'error'
+                text: 'Update error!',
+                icon: 'error',
+                timer: 1000,
+                timerProgressBar: true,
+                showConfirmButton: false
+                })
+                .then((result) => {
+                    result.dismiss === Swal.DismissReason.timer
+                    ? Router.reload()
+                    : Router.reload()
                 })
         })
     }

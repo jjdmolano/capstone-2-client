@@ -6,6 +6,7 @@ import Router from 'next/router'
 
 export default function AddRecord({categories}) {
     const {user} = useContext(UserContext)
+    const [categoryId, setCategoryId] = useState('')
     const [categoryName, setCategoryName] = useState('')
     const [categoryType, setCategoryType] = useState('')
     const [amount, setAmount] = useState(0)
@@ -21,7 +22,7 @@ export default function AddRecord({categories}) {
 
     // verify record amount hook
     useEffect(()=> {
-        ((amount > 0 && isNaN(amount) === false) && (categoryType.length > 0 && categoryName.length > 0))
+        ((amount.length > 0 && isNaN(amount) === false) && (categoryType.length > 0 && categoryName.length > 0))
         ? setIsActive(true)
         : setIsActive(false)
     }, [amount, categoryName, categoryType])
@@ -36,6 +37,23 @@ export default function AddRecord({categories}) {
         )
     },[categoryName])
 
+    // auto-set category ID after choosing category name hook
+    useEffect(()=> {
+        const autoId = categories.find(autoId => autoId.categoryName === categoryName)
+        return (
+            (autoId === undefined)
+            ? setCategoryId('')
+            : setCategoryId(autoId._id)
+        )
+    },[categoryName])
+
+    // set record amount to negative if category is expense hook
+    useEffect(()=> {
+        ((categoryType === 'Expense' && amount > 0 && isNaN(amount) === false))
+        ? setAmount(-amount)
+        : setAmount(amount)
+    },[amount, categoryType])
+
     function addRecord(e) {
         e.preventDefault()
         fetch(`http://localhost:4000/api/users/${user.id}/transactions`,
@@ -46,6 +64,7 @@ export default function AddRecord({categories}) {
                 'Authorization': `Bearer ${localStorage.getItem('token')}`
             },
             body: JSON.stringify({
+                categoryId: categoryId,
                 categoryName: categoryName,
                 categoryType: categoryType,
                 amount: amount,
@@ -57,15 +76,27 @@ export default function AddRecord({categories}) {
             data
             ?   Swal.fire({
                 text: 'Added record!',
-                icon: 'success'
+                icon: 'success',
+                timer: 1000,
+                timerProgressBar: true,
+                showConfirmButton: false
                 })
                 .then((result) => {
-                    result.value
+                    result.dismiss === Swal.DismissReason.timer
                     ? Router.reload()
-                    : null
+                    : Router.reload()
                 })
             :   Swal.fire({
-                text: 'Error!', icon: 'error'
+                text: 'Error!',
+                icon: 'error',
+                timer: 1000,
+                timerProgressBar: true,
+                showConfirmButton: false
+                })
+                .then((result) => {
+                    result.dismiss === Swal.DismissReason.timer
+                    ? Router.reload()
+                    : Router.reload()
                 })
         })
     }

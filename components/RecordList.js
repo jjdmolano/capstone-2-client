@@ -18,11 +18,10 @@ export default function RecordList({records, categories}) {
                         <ListGroup.Item key={record._id}>
                         <Row>
                             <Col className="col-2">{record.categoryName}</Col>
-                            <Col className="col-1">{record.amount}</Col>
-                            <Col className="col-2">{record.categoryType}</Col>
-                            <Col className="col-1">{record.description}</Col>
-                            <Col className="col-1">{record.balanceAfterTransaction}</Col>
-                            <Col className="col-3">{recordDate}</Col>
+                            <Col className="col-1">{record.categoryType}</Col>
+                            <Col className="col-2">{record.description}</Col>
+                            <Col className="col-1">{Math.abs(record.amount)}</Col>
+                            <Col className="col-4">{recordDate}</Col>
                             <Col className="col-2">
                             <UpdateRecordModal record={record} categories={categories} />
                             <DeleteRecordButton recordId={record._id} />

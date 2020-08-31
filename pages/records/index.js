@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { Jumbotron, Container } from 'react-bootstrap'
+import { Jumbotron, Container, Col, Row } from 'react-bootstrap'
 import AddRecord from '../../components/AddRecord'
 import RecordList from '../../components/RecordList'
 
@@ -32,23 +32,23 @@ export default function index() {
 
     // TODO: filter records by income and expense(convert to negative!) and add them
 
-    // Get sum of all income
-    // const incomeSum = records
-    //     .filter(record => record.categoryType === 'Income')
-    //     .map(record => record.amount)
-    //     .reduce((total, amount) => total + amount, 0)
-    // // console.log(incomeSum)
+    // Sum of all income
+    const incomeSum = records
+        .filter(record => record.categoryType === 'Income')
+        .map(record => record.amount)
+        .reduce((total, amount) => total + amount, 0)
 
-    // // Get sum of all expenses
-    // const expenseSum = records
-    //     .filter(record => record.categoryType === 'Expense')
-    //     .map(record => record.amount)
-    //     .reduce((total, amount) => total + amount, 0)
-    // // console.log(expenseSum)
+    // Sum of all expenses
+    const expenseSum = records
+        .filter(record => record.categoryType === 'Expense')
+        .map(record => record.amount)
+        .reduce((total, amount) => total + amount, 0)
 
-    // // Get current total amount for all accounts
-    // const totalAmount = incomeSum - expenseSum
-    // console.log(totalAmount)
+    // new array for balance per transaction
+    let balanceArr = records.map(record => record.amount),sum
+    balanceArr = balanceArr.map(recordAmount => sum = (sum || 0) + recordAmount)
+
+    const currentBalance = balanceArr.slice(-1)
 
     // fetch user records and categories hook
     useEffect(() => {
@@ -67,12 +67,24 @@ export default function index() {
 
     return (
         <Container className="mx-5 px-5" >
-            {categories.length === 0
+            {categories.length === 0 && records.length === 0
             ?   <Jumbotron>
                     <p>You need to create a category first before adding a record.</p>
                 </Jumbotron>
             :   <>
-               <AddRecord categories={categories} />
+                <Jumbotron className="py-3">
+                    <h1>{name}'s Account</h1>
+                    <Row>
+                        <Col className="col-7">
+                            <h3>Your current Balance is: PHP {currentBalance}</h3>
+                        </Col>
+                        <Col className="col-5">
+                            <h5>Total Income: PHP {incomeSum}</h5>
+                            <h5>Total Expenses: PHP {Math.abs(expenseSum)}</h5>
+                        </Col>
+                    </Row>
+                </Jumbotron>
+                <AddRecord categories={categories} />
                 {(records.length === 0)
                 ?   <Jumbotron>
                         <p>We couldn't find any records, {name}. Why not make one above?</p>
