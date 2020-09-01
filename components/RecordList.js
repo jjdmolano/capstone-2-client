@@ -8,13 +8,12 @@ export default function RecordList({records, categories, setRecords}) {
         <ListGroup>
                 {records.map(record => {
                     const recordDate = new Date(record.dateAdded).toLocaleString('en-US',{
-                        month:'numeric',
+                        month:'short',
                         day:'numeric',
                         year:'numeric',
                         weekday:'long',
                         hour:'2-digit',
-                        minute:'2-digit',
-                        second: '2-digit'
+                        minute:'2-digit'
                     })
                     return (
                         <ListGroup.Item key={record._id}>
