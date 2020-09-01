@@ -31,7 +31,7 @@ export default function MyApp({ Component, pageProps }) {
   return(
     <UserProvider value={{user, setUser, unsetUser}}>
       <NavBar />
-      <Container>
+      <Container fluid className="main-container">
         <Component {...pageProps} />
       </Container>
     </UserProvider>

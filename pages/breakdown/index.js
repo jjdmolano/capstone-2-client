@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react'
-import { Container } from 'react-bootstrap'
 import DoughnutChart from '../../components/DoughnutChart';
-
+import Head from 'next/head'
 
 export default function index() {
     const [ records, setRecords ] = useState([])
@@ -20,8 +19,9 @@ export default function index() {
     },[])
 
     return (
-        <Container>
-            <DoughnutChart records={records} />
-        </Container>
+        <>
+        <Head><title>Breakdown</title></Head>
+        <DoughnutChart records={records} />
+        </>
     )
 }

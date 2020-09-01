@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react'
-import { Container } from 'react-bootstrap'
-import LineChart from '../../components/LineChart';
-
+import LineChart from '../../components/LineChart'
+import Head from 'next/head'
 
 export default function index() {
     const [ records, setRecords ] = useState([])
@@ -20,8 +19,9 @@ export default function index() {
     },[])
 
     return (
-        <Container>
-            <LineChart records={records} />
-        </Container>
+        <>
+        <Head><title>Trends</title></Head>
+        <LineChart records={records} />
+        </>
     )
 }

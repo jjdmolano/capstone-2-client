@@ -1,7 +1,8 @@
 import { useState, useEffect } from 'react'
-import { Jumbotron, Container } from 'react-bootstrap'
+import { Jumbotron } from 'react-bootstrap'
 import AddCategory from '../../components/AddCategory'
 import CategoryList from '../../components/CategoryList'
+import Head from 'next/head'
 
 export default function index() {
     const [ name, setName ] = useState('')
@@ -22,14 +23,15 @@ export default function index() {
     },[])
 
     return (
-        <Container className="mx-5 px-5" >
-            <AddCategory setCategories={setCategories} />
-            {categories.length === 0
-            ?   <Jumbotron>
-                    <p>We couldn't find any categories, {name}. Why not make one above?</p>
-                </Jumbotron>
-            :   <CategoryList categories={categories} setCategories={setCategories} />
-            }
-        </Container>
+        <>
+        <Head><title>Categories</title></Head>
+        <AddCategory setCategories={setCategories} />
+        {categories.length === 0
+        ?   <Jumbotron>
+                <p>We couldn't find any categories, {name}. Why not make one above?</p>
+            </Jumbotron>
+        :   <CategoryList categories={categories} setCategories={setCategories} />
+        }
+        </>
     )
 }
