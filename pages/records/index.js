@@ -1,5 +1,5 @@
-import { useEffect, useState } from 'react'
-import { Jumbotron, Container, Col, Row } from 'react-bootstrap'
+import { useState, useEffect } from 'react'
+import { Jumbotron, Container, Row, Col } from 'react-bootstrap'
 import AddRecord from '../../components/AddRecord'
 import RecordList from '../../components/RecordList'
 
@@ -32,13 +32,13 @@ export default function index() {
 
     // TODO: filter records by income and expense(convert to negative!) and add them
 
-    // Sum of all income
+    // sum of all income
     const incomeSum = records
         .filter(record => record.categoryType === 'Income')
         .map(record => record.amount)
         .reduce((total, amount) => total + amount, 0)
 
-    // Sum of all expenses
+    // sum of all expenses
     const expenseSum = records
         .filter(record => record.categoryType === 'Expense')
         .map(record => record.amount)
@@ -48,6 +48,7 @@ export default function index() {
     let balanceArr = records.map(record => record.amount),sum
     balanceArr = balanceArr.map(recordAmount => sum = (sum || 0) + recordAmount)
 
+    // get current total balance
     const currentBalance = balanceArr.slice(-1)
 
     // fetch user records and categories hook

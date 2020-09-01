@@ -2,6 +2,7 @@ import { Row, Col, ListGroup } from 'react-bootstrap'
 import DeleteCategoryButton from '../components/DeleteCategoryButton'
 
 export default function CategoryList({categories, setCategories}) {
+
     return (
         <ListGroup>
             {categories.map(category => {

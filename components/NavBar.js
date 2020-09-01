@@ -4,7 +4,6 @@ import Link from 'next/link'
 import { Navbar, Nav } from 'react-bootstrap'
 
 export default function NavBar() {
-
     const { user } = useContext(UserContext)
 
     return(

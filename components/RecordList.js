@@ -3,6 +3,7 @@ import DeleteRecordButton from '../components/DeleteRecordButton'
 import UpdateRecordModal from './UpdateRecordModal'
 
 export default function RecordList({records, categories, setRecords}) {
+
     return (
         <ListGroup>
                 {records.map(record => {

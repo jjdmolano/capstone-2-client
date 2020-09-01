@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Jumbotron, Container } from 'react-bootstrap'
 import AddCategory from '../../components/AddCategory'
 import CategoryList from '../../components/CategoryList'

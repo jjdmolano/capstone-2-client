@@ -1,5 +1,4 @@
 import { useState, useEffect, useContext } from 'react'
-import Router from 'next/router'
 import UserContext from '../UserContext'
 import { Button, Form, Modal, Col } from 'react-bootstrap'
 import Swal from 'sweetalert2'
@@ -14,7 +13,14 @@ export default function UpdateRecordButton({record, categories, setRecords}) {
     const [isActive, setIsActive] = useState(false)
     const [ show, setShow ] = useState(false)
     const showModal = () => setShow(true)
-    const closeModal = () => setShow(false)
+
+    // reset update form upon modal close
+    const closeModal = () => {
+        setShow(false)
+        setDescription('')
+        setAmount('')
+    }
+
     // pre-load category name and type once category prop gets passed hook
     useEffect(()=> {
         (categories.length === 0)
@@ -49,15 +55,14 @@ export default function UpdateRecordButton({record, categories, setRecords}) {
         )
     },[categoryName])
 
-    // set record amount to negative if category is expense hook
-    useEffect(()=> {
-        ((categoryType === 'Expense' && amount > 0 && isNaN(amount) === false))
-        ? setAmount(-amount)
-        : setAmount(amount)
-    },[amount, categoryType])
-
     const updateRecord = (e) => {
         e.preventDefault()
+
+        // set record amount to negative if category is expense
+        const newAmount = (categoryType === 'Expense')
+            ? -amount
+            : amount
+
         fetch(`http://localhost:4000/api/users/${user.id}/tr/${record._id}`, {
             method: 'PUT',
             headers: {
@@ -68,7 +73,7 @@ export default function UpdateRecordButton({record, categories, setRecords}) {
                 categoryId: categoryId,
                 categoryName: categoryName,
                 categoryType: categoryType,
-                amount: amount,
+                amount: newAmount,
                 description: description
             })
         })
@@ -83,6 +88,8 @@ export default function UpdateRecordButton({record, categories, setRecords}) {
                 .then(res => res.json())
                 .then(data => {
                     setRecords(data.transactions)
+                    setAmount('')
+                    setDescription('')
                     Swal.fire({
                     text: 'Updated record!',
                     icon: 'success',
@@ -127,7 +134,7 @@ export default function UpdateRecordButton({record, categories, setRecords}) {
                 </Col>
                 <Form.Label column className="pl-3 col-auto">Amount:</Form.Label>
                 <Col>
-                    <Form.Control type="text" placeholder={record.amount} value={amount} onChange={e => setAmount(e.target.value)} required />
+                    <Form.Control type="text" placeholder={Math.abs(record.amount)} value={amount} onChange={e => setAmount(e.target.value)} required />
                 </Col>
             </Form.Row>
             <Form.Row>

@@ -1,15 +1,14 @@
 import { useState, useEffect, useContext } from 'react'
-import { Form, Button, Row, Col } from 'react-bootstrap'
+import { Form, Button, Col } from 'react-bootstrap'
 import Swal from 'sweetalert2'
 import UserContext from '../UserContext'
-import Router from 'next/router'
 
 export default function AddRecord({categories, setRecords}) {
     const {user} = useContext(UserContext)
     const [categoryId, setCategoryId] = useState('')
     const [categoryName, setCategoryName] = useState('')
     const [categoryType, setCategoryType] = useState('')
-    const [amount, setAmount] = useState(0)
+    const [amount, setAmount] = useState('')
     const [description, setDescription] = useState('')
     const [isActive, setIsActive] = useState(false)
 
@@ -47,15 +46,15 @@ export default function AddRecord({categories, setRecords}) {
         )
     },[categoryName])
 
-    // set record amount to negative if category is expense hook
-    useEffect(()=> {
-        ((categoryType === 'Expense' && amount > 0 && isNaN(amount) === false))
-        ? setAmount(-amount)
-        : setAmount(amount)
-    },[amount, categoryType])
 
     function addRecord(e) {
         e.preventDefault()
+
+        // set record amount to negative if category is expense
+        const newAmount = (categoryType === 'Expense')
+            ? -amount
+            : amount
+
         fetch(`http://localhost:4000/api/users/${user.id}/transactions`,
         {
             method: 'PUT',
@@ -67,7 +66,7 @@ export default function AddRecord({categories, setRecords}) {
                 categoryId: categoryId,
                 categoryName: categoryName,
                 categoryType: categoryType,
-                amount: amount,
+                amount: newAmount,
                 description: description
             })
         })
@@ -83,7 +82,7 @@ export default function AddRecord({categories, setRecords}) {
                 .then(data => {
                     setRecords(data.transactions)
                     setDescription('')
-                    setAmount(0)
+                    setAmount('')
                     Swal.fire({
                     text: 'Added record!',
                     icon: 'success',
