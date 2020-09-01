@@ -42,10 +42,11 @@ export default function AddCategory({setCategories}) {
                 .then(res => res.json())
                 .then(data => {
                     setCategories(data.categories)
+                    setCategoryName('')
                     Swal.fire({
                     text: 'Added category!',
                     icon: 'success',
-                    timer: 1000,
+                    timer: 800,
                     timerProgressBar: true,
                     showConfirmButton: false
                     })
@@ -57,7 +58,7 @@ export default function AddCategory({setCategories}) {
                 })
             :   Swal.fire({
                 text: 'You have already added this category', icon: 'error',
-                timer: 1000,
+                timer: 800,
                 timerProgressBar: true,
                 showConfirmButton: false
                 })

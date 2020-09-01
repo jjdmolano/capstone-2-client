@@ -82,10 +82,12 @@ export default function AddRecord({categories, setRecords}) {
                 .then(res => res.json())
                 .then(data => {
                     setRecords(data.transactions)
+                    setDescription('')
+                    setAmount(0)
                     Swal.fire({
                     text: 'Added record!',
                     icon: 'success',
-                    timer: 1000,
+                    timer: 800,
                     timerProgressBar: true,
                     showConfirmButton: false
                     })
@@ -98,7 +100,7 @@ export default function AddRecord({categories, setRecords}) {
             :   Swal.fire({
                 text: 'Error!',
                 icon: 'error',
-                timer: 1000,
+                timer: 800,
                 timerProgressBar: true,
                 showConfirmButton: false
                 })

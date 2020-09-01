@@ -86,7 +86,7 @@ export default function UpdateRecordButton({record, categories, setRecords}) {
                     Swal.fire({
                     text: 'Updated record!',
                     icon: 'success',
-                    timer: 1000,
+                    timer: 800,
                     timerProgressBar: true,
                     showConfirmButton: false
                     })
@@ -99,7 +99,7 @@ export default function UpdateRecordButton({record, categories, setRecords}) {
             :   Swal.fire({
                 text: 'Update error!',
                 icon: 'error',
-                timer: 1000,
+                timer: 800,
                 timerProgressBar: true,
                 showConfirmButton: false
                 })

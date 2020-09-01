@@ -37,7 +37,7 @@ export default function DeleteCategoryButton({categoryId, setCategories}) {
                             Swal.fire({
                             text: 'Deleted category!',
                             icon: 'success',
-                            timer: 1000,
+                            timer: 800,
                             timerProgressBar: true,
                             showConfirmButton: false
                             })
@@ -50,7 +50,7 @@ export default function DeleteCategoryButton({categoryId, setCategories}) {
                     :   Swal.fire({
                         text: 'Delete error!',
                         icon: 'error',
-                        timer: 1000,
+                        timer: 800,
                         timerProgressBar: true,
                         showConfirmButton: false
                         })

@@ -37,7 +37,7 @@ export default function DeleteRecordButton({recordId, setRecords}) {
                                 Swal.fire({
                                 text: 'Deleted record!',
                                 icon: 'success',
-                                timer: 1000,
+                                timer: 800,
                                 timerProgressBar: true,
                                 showConfirmButton: false
                                 })
@@ -50,7 +50,7 @@ export default function DeleteRecordButton({recordId, setRecords}) {
                         :   Swal.fire({
                             text: 'Delete error!',
                             icon: 'error',
-                            timer: 1000,
+                            timer: 800,
                             timerProgressBar: true,
                             showConfirmButton: false
                             })
