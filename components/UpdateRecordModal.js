@@ -4,7 +4,7 @@ import UserContext from '../UserContext'
 import { Button, Form, Modal, Col } from 'react-bootstrap'
 import Swal from 'sweetalert2'
 
-export default function UpdateRecordButton({record, categories}) {
+export default function UpdateRecordButton({record, categories, setRecords}) {
     const {user} = useContext(UserContext)
     const [categoryId, setCategoryId] = useState('')
     const [categoryName, setCategoryName] = useState('')
@@ -75,17 +75,26 @@ export default function UpdateRecordButton({record, categories}) {
         .then((res => res.json()))
         .then((data) => {
             data
-            ?   Swal.fire({
-                text: 'Updated record!',
-                icon: 'success',
-                timer: 1000,
-                timerProgressBar: true,
-                showConfirmButton: false
+            ?   fetch('http://localhost:4000/api/users/details', {
+                headers: {
+                    Authorization: `Bearer ${localStorage.getItem('token')}`
+                }
                 })
-                .then((result) => {
-                    result.dismiss === Swal.DismissReason.timer
-                    ? Router.reload()
-                    : Router.reload()
+                .then(res => res.json())
+                .then(data => {
+                    setRecords(data.transactions)
+                    Swal.fire({
+                    text: 'Updated record!',
+                    icon: 'success',
+                    timer: 1000,
+                    timerProgressBar: true,
+                    showConfirmButton: false
+                    })
+                    .then((result) => {
+                        result.dismiss === Swal.DismissReason.timer
+                        ? setShow(false)
+                        : setShow(false)
+                    })
                 })
             :   Swal.fire({
                 text: 'Update error!',
@@ -96,8 +105,8 @@ export default function UpdateRecordButton({record, categories}) {
                 })
                 .then((result) => {
                     result.dismiss === Swal.DismissReason.timer
-                    ? Router.reload()
-                    : Router.reload()
+                    ? null
+                    : null
                 })
         })
     }

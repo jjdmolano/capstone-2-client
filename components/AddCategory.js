@@ -4,7 +4,7 @@ import Swal from 'sweetalert2'
 import UserContext from '../UserContext'
 import Router from 'next/router'
 
-export default function AddCategory() {
+export default function AddCategory({setCategories}) {
     const {user} = useContext(UserContext)
     const [categoryName, setCategoryName] = useState('')
     const [categoryType, setCategoryType] = useState('Expense')
@@ -34,17 +34,26 @@ export default function AddCategory() {
         .then(res => res.json())
         .then(data => {
             data
-            ?   Swal.fire({
-                text: 'Added category!',
-                icon: 'success',
-                timer: 1000,
-                timerProgressBar: true,
-                showConfirmButton: false
+            ?   fetch('http://localhost:4000/api/users/details', {
+                headers: {
+                    Authorization: `Bearer ${localStorage.getItem('token')}`
+                }
                 })
-                .then((result) => {
-                    result.dismiss === Swal.DismissReason.timer
-                    ? Router.reload()
-                    : Router.reload()
+                .then(res => res.json())
+                .then(data => {
+                    setCategories(data.categories)
+                    Swal.fire({
+                    text: 'Added category!',
+                    icon: 'success',
+                    timer: 1000,
+                    timerProgressBar: true,
+                    showConfirmButton: false
+                    })
+                    .then((result) => {
+                        result.dismiss === Swal.DismissReason.timer
+                        ? null
+                        : null
+                    })
                 })
             :   Swal.fire({
                 text: 'You have already added this category', icon: 'error',
@@ -54,8 +63,8 @@ export default function AddCategory() {
                 })
                 .then((result) => {
                     result.dismiss === Swal.DismissReason.timer
-                    ? Router.reload()
-                    : Router.reload()
+                    ? null
+                    : null
                 })
         })
     }

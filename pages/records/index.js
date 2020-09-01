@@ -84,12 +84,12 @@ export default function index() {
                         </Col>
                     </Row>
                 </Jumbotron>
-                <AddRecord categories={categories} />
+                <AddRecord categories={categories} setRecords={setRecords} />
                 {(records.length === 0)
                 ?   <Jumbotron>
                         <p>We couldn't find any records, {name}. Why not make one above?</p>
                     </Jumbotron>
-                :   <RecordList records={records} categories={categories} />
+                :   <RecordList records={records} categories={categories} setRecords={setRecords} />
                 }
                 </>
             }

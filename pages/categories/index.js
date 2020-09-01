@@ -23,12 +23,12 @@ export default function index() {
 
     return (
         <Container className="mx-5 px-5" >
-            <AddCategory />
+            <AddCategory setCategories={setCategories} />
             {categories.length === 0
             ?   <Jumbotron>
                     <p>We couldn't find any categories, {name}. Why not make one above?</p>
                 </Jumbotron>
-            :   <CategoryList categories={categories} />
+            :   <CategoryList categories={categories} setCategories={setCategories} />
             }
         </Container>
     )

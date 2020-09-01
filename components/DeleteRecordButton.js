@@ -4,7 +4,7 @@ import UserContext from '../UserContext'
 import { Button } from 'react-bootstrap'
 import Swal from 'sweetalert2'
 
-export default function DeleteRecordButton({recordId}) {
+export default function DeleteRecordButton({recordId, setRecords}) {
     const {user} = useContext(UserContext)
     const deleteRecord = (recordId) => {
         Swal.fire({
@@ -26,17 +26,26 @@ export default function DeleteRecordButton({recordId}) {
                     .then((res => res.json()))
                     .then((data) => {
                         data
-                        ?   Swal.fire({
-                            text: 'Deleted record!',
-                            icon: 'success',
-                            timer: 1000,
-                            timerProgressBar: true,
-                            showConfirmButton: false
+                        ?   fetch('http://localhost:4000/api/users/details', {
+                            headers: {
+                                Authorization: `Bearer ${localStorage.getItem('token')}`
+                            }
                             })
-                            .then((result) => {
-                                result.dismiss === Swal.DismissReason.timer
-                                ? Router.reload()
-                                : Router.reload()
+                            .then(res => res.json())
+                            .then(data => {
+                                setRecords(data.transactions)
+                                Swal.fire({
+                                text: 'Deleted record!',
+                                icon: 'success',
+                                timer: 1000,
+                                timerProgressBar: true,
+                                showConfirmButton: false
+                                })
+                                .then((result) => {
+                                    result.dismiss === Swal.DismissReason.timer
+                                    ? null
+                                    : null
+                                })
                             })
                         :   Swal.fire({
                             text: 'Delete error!',
@@ -47,8 +56,8 @@ export default function DeleteRecordButton({recordId}) {
                             })
                             .then((result) => {
                                 result.dismiss === Swal.DismissReason.timer
-                                ? Router.reload()
-                                : Router.reload()
+                                ? null
+                                : null
                             })
                     })
             : null
