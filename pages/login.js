@@ -91,7 +91,7 @@ export default function login() {
             render={renderProps => (
                 <Button onClick={renderProps.onClick} disabled={renderProps.disabled} variant="outline-success">Login using Google Account</Button>
             )}
-            clientId="668311413806-b1kj21kiv4doqb878flbm5pd2uo7r51m.apps.googleusercontent.com"
+            clientId="668311413806-2vm3cq4232s0d5ppd2u6gfi316pbbm20.apps.googleusercontent.com"
             onSuccess={captureLoginResponse}
             onFailure={captureLoginResponse}
             cookiePolicy={'single_host_origin'} />
