@@ -2,7 +2,6 @@ import { useContext } from 'react'
 import UserContext from '../UserContext'
 import { Button } from 'react-bootstrap'
 import Swal from 'sweetalert2'
-import AppHelper from '../app-helper'
 
 export default function DeleteCategoryButton({categoryId, setCategories}) {
     const {user} = useContext(UserContext)
@@ -17,7 +16,7 @@ export default function DeleteCategoryButton({categoryId, setCategories}) {
         })
         .then((result) => {
             result.value
-            ?   fetch(`${AppHelper.API_URL}/users/${user.id}/${categoryId}`, {
+            ?   fetch(`${process.env.NEXT_PUBLIC_API_URL}/users/${user.id}/${categoryId}`, {
                 method: 'DELETE',
                 headers: {
                     Authorization: `Bearer ${localStorage.getItem('token')}`
@@ -26,7 +25,7 @@ export default function DeleteCategoryButton({categoryId, setCategories}) {
                 .then((res => res.json()))
                 .then((data) => {
                     data
-                    ?   fetch(`${AppHelper.API_URL}/users/details`, {
+                    ?   fetch(`${process.env.NEXT_PUBLIC_API_URL}/users/details`, {
                         headers: {
                             Authorization: `Bearer ${localStorage.getItem('token')}`
                         }

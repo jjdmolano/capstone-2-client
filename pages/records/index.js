@@ -3,7 +3,6 @@ import { Jumbotron, Row, Col } from 'react-bootstrap'
 import AddRecord from '../../components/AddRecord'
 import RecordList from '../../components/RecordList'
 import Head from 'next/head'
-import AppHelper from '../../app-helper'
 
 export default function index() {
     const [ name, setName ] = useState('')
@@ -31,7 +30,7 @@ export default function index() {
 
     // fetch user records and categories hook
     useEffect(() => {
-        fetch(`${AppHelper.API_URL}/users/details`, {
+        fetch(`${process.env.NEXT_PUBLIC_API_URL}/users/details`, {
         headers: {
             Authorization: `Bearer ${localStorage.getItem('token')}`
         }

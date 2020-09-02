@@ -3,7 +3,6 @@ import UserContext from '../UserContext'
 import Router from 'next/router'
 import { GoogleLogin } from 'react-google-login'
 import { Form, Jumbotron, Button } from 'react-bootstrap'
-import AppHelper from '../app-helper'
 
 export default function login() {
     const { user, setUser } = useContext(UserContext)
@@ -14,7 +13,7 @@ export default function login() {
     function authenticate(e) {
         e.preventDefault()
 
-        fetch(`${AppHelper.API_URL}/users/login`, {
+        fetch(`${process.env.NEXT_PUBLIC_API_URL}/users/login`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -28,7 +27,7 @@ export default function login() {
         .then(data => {
             if(data.accessToken) {
                 localStorage.setItem('token', data.accessToken)
-                fetch(`${AppHelper.API_URL}/users/details`, {
+                fetch(`${process.env.NEXT_PUBLIC_API_URL}/users/details`, {
                     headers: {
                         Authorization: `Bearer ${data.accessToken}`
                     }
@@ -54,7 +53,7 @@ export default function login() {
             body: JSON.stringify({tokenId: res.tokenId})
         }
 
-        fetch(`${AppHelper.API_URL}/users/verify-google-id-token`, payload)
+        fetch(`${process.env.NEXT_PUBLIC_API_URL}/users/verify-google-id-token`, payload)
         .then((res) => res.json())
         .then(data => {
             if (typeof data.accessToken !== 'undefined') {

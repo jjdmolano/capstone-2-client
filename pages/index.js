@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react'
 import { Jumbotron, CardDeck, Card, Row, Col } from 'react-bootstrap'
 import Head from 'next/head'
-import AppHelper from '../app-helper'
 
 export default function Home() {
     const [ firstName, setFirstName ] = useState('')
@@ -25,7 +24,7 @@ export default function Home() {
 
     // fetch user records hook
     useEffect(() => {
-    fetch(`${AppHelper.API_URL}/users/details`, {
+    fetch(`${process.env.NEXT_PUBLIC_API_URL}/users/details`, {
     headers: {
         Authorization: `Bearer ${localStorage.getItem('token')}`
     }
