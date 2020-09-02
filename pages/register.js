@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import Router from 'next/router'
-import { Form, Button } from 'react-bootstrap'
+import { Container, Form, Image, Button } from 'react-bootstrap'
+import Swal from 'sweetalert2'
 
 export default function register() {
     const [firstName, setFirstName] = useState('')
@@ -36,35 +37,53 @@ export default function register() {
         })
         .then(res => res.json())
         .then(data => {
-            (data === true) ? Router.push('/login') : Router.push('/error')
+            (data === true)
+            ?   Swal.fire({
+                text: 'Registration success!',
+                icon: 'success',
+                timer: 800,
+                timerProgressBar: true,
+                showConfirmButton: false
+                })
+                .then((result) => {
+                    result.dismiss === Swal.DismissReason.timer
+                    ? Router.push('/login')
+                    : Router.push('/login')
+                })
+            : Router.push('/error')
         })
     }
 
     return (
-        <Form onSubmit={(e) => registerUser(e)}>
-             <Form.Group>
-                <Form.Label>First Name</Form.Label>
-                <Form.Control type="text" value={firstName} onChange={e => setFirstName(e.target.value)} required></Form.Control>
-            </Form.Group>
-            <Form.Group>
-                <Form.Label>Last Name</Form.Label>
-                <Form.Control type="text" value={lastName} onChange={e => setLastName(e.target.value)} required></Form.Control>
-            </Form.Group>
-            <Form.Group>
-                <Form.Label>Email</Form.Label>
-                <Form.Control type="email" value={email} onChange={e => setEmail(e.target.value)} required></Form.Control>
-            </Form.Group>
-            <Form.Group>
-                <Form.Label>Password</Form.Label>
-                <Form.Control type="password" value={password1} onChange={e => setPassword1(e.target.value)} required></Form.Control>
-            </Form.Group>
-            <Form.Group>
-                <Form.Label>Verify Password</Form.Label>
-                <Form.Control type="password" value={password2} onChange={e => setPassword2(e.target.value)} required></Form.Control>
-            </Form.Group>
-            {isActive === true
-            ? <Button variant="primary" type="submit">Submit</Button>
-            : <Button variant="outline-primary" type="submit" disabled>Submit</Button>}
-        </Form>
+        <Container className="register-main">
+            <div className="login-img">
+                <Image src="/landing.svg" fluid/>
+            </div>
+            <Form onSubmit={(e) => registerUser(e)} class="register-form">
+                <Form.Group>
+                    <Form.Label>First Name</Form.Label>
+                    <Form.Control type="text" value={firstName} onChange={e => setFirstName(e.target.value)} required></Form.Control>
+                </Form.Group>
+                <Form.Group>
+                    <Form.Label>Last Name</Form.Label>
+                    <Form.Control type="text" value={lastName} onChange={e => setLastName(e.target.value)} required></Form.Control>
+                </Form.Group>
+                <Form.Group>
+                    <Form.Label>Email</Form.Label>
+                    <Form.Control type="email" value={email} onChange={e => setEmail(e.target.value)} required></Form.Control>
+                </Form.Group>
+                <Form.Group>
+                    <Form.Label>Password</Form.Label>
+                    <Form.Control type="password" value={password1} onChange={e => setPassword1(e.target.value)} required></Form.Control>
+                </Form.Group>
+                <Form.Group>
+                    <Form.Label>Verify Password</Form.Label>
+                    <Form.Control type="password" value={password2} onChange={e => setPassword2(e.target.value)} required></Form.Control>
+                </Form.Group>
+                {isActive === true
+                ? <Button className="register-button-main" type="submit" block>Register</Button>
+                : <Button id="register-button-main-disabled" type="submit" disabled block>Register</Button>}
+            </Form>
+        </Container>
     )
 }

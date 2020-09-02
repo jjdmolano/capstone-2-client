@@ -2,6 +2,7 @@ import { useState, useEffect, useContext } from 'react'
 import { Form, Button, Col } from 'react-bootstrap'
 import Swal from 'sweetalert2'
 import UserContext from '../UserContext'
+import styles from './AddCategory.module.css'
 
 export default function AddCategory({setCategories}) {
     const {user} = useContext(UserContext)
@@ -18,7 +19,7 @@ export default function AddCategory({setCategories}) {
 
     function addCategory(e) {
         e.preventDefault()
-        fetch(`${process.env.NEXT_PUBLIC_API_URL}/users/${user.id}/categories`,
+        fetch(`${AppHelper.API_URL}/users/${user.id}/categories`,
         {
             method: 'PUT',
             headers: {
@@ -33,7 +34,7 @@ export default function AddCategory({setCategories}) {
         .then(res => res.json())
         .then(data => {
             data
-            ?   fetch(`${process.env.NEXT_PUBLIC_API_URL}/users/details`, {
+            ?   fetch(`${AppHelper.API_URL}/users/details`, {
                 headers: {
                     Authorization: `Bearer ${localStorage.getItem('token')}`
                 }
@@ -70,7 +71,7 @@ export default function AddCategory({setCategories}) {
     }
 
     return (
-        <Form onSubmit={(e) => addCategory(e)} className="pb-2">
+        <Form onSubmit={(e) => addCategory(e)} className={styles.form}>
             <Form.Row>
                 <Form.Label column className="pl-3 col-auto">Add Category:</Form.Label>
                 <Col className="col-4">

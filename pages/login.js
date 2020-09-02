@@ -2,7 +2,7 @@ import { useState, useContext } from 'react'
 import UserContext from '../UserContext'
 import Router from 'next/router'
 import { GoogleLogin } from 'react-google-login'
-import { Form, Jumbotron, Button } from 'react-bootstrap'
+import { Container, Form, Jumbotron, Image, Button } from 'react-bootstrap'
 
 export default function login() {
     const { user, setUser } = useContext(UserContext)
@@ -74,28 +74,33 @@ export default function login() {
         <>
         {
         (user.id === null)
-        ?   <>
-            <Form onSubmit={(e) => authenticate(e)}>
-                <Form.Group>
-                    <Form.Label>Email</Form.Label>
-                    <Form.Control type="email" value={email} onChange={(e) => setEmail(e.target.value)} ></Form.Control>
-                </Form.Group>
-                <Form.Group>
-                    <Form.Label>Password</Form.Label>
-                    <Form.Control type="password" value={password} onChange={(e) => setPassword(e.target.value)} ></Form.Control>
-                </Form.Group>
-                <Button variant="primary" type="submit" >Submit</Button>
-            </Form>
-            <p>or</p>
-            <GoogleLogin
-            render={renderProps => (
-                <Button onClick={renderProps.onClick} disabled={renderProps.disabled} variant="outline-success">Login using Google Account</Button>
-            )}
-            clientId="668311413806-037mvt89p941msquk95tk75mj27mb699.apps.googleusercontent.com"
-            onSuccess={captureLoginResponse}
-            onFailure={captureLoginResponse}
-            cookiePolicy={'single_host_origin'} />
-            </>
+        ?   <Container className="login-landing">
+                <div className="login-img">
+                    <Image src="/landing.svg" fluid/>
+                </div>
+                <Form onSubmit={(e) => authenticate(e)} className="login-form">
+                    <Form.Group>
+                        <Form.Label>Email</Form.Label>
+                        <Form.Control type="email" value={email} onChange={(e) => setEmail(e.target.value)} ></Form.Control>
+                    </Form.Group>
+                    <Form.Group>
+                        <Form.Label>Password</Form.Label>
+                        <Form.Control type="password" value={password} onChange={(e) => setPassword(e.target.value)} ></Form.Control>
+                    </Form.Group>
+                    <div className="buttons">
+                        <Button type="submit" className="login-button">Sign in</Button>
+                        <GoogleLogin className="google-login"
+                        clientId="668311413806-037mvt89p941msquk95tk75mj27mb699.apps.googleusercontent.com"
+                        onSuccess={captureLoginResponse}
+                        onFailure={captureLoginResponse}
+                        cookiePolicy={'single_host_origin'} />
+                        <p>
+                            <small>Don't have an account?</small>
+                        </p>
+                        <Button href="/register" className="register-button">Register</Button>
+                    </div>
+                </Form>
+            </Container>
         :   <Jumbotron>
                 <h1>Error!</h1>
                 <p>You are already logged in. Would you like to go <a href="/"><strong>Home</strong></a>?</p>

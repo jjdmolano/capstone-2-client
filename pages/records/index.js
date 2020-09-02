@@ -1,4 +1,4 @@
-import { useState, useEffect, useContext } from 'react'
+import { useState, useEffect } from 'react'
 import { Jumbotron, Row, Col } from 'react-bootstrap'
 import AddRecord from '../../components/AddRecord'
 import RecordList from '../../components/RecordList'
@@ -8,18 +8,8 @@ export default function index() {
     const [ name, setName ] = useState('')
     const [ categories, setCategories ] = useState([])
     const [ records, setRecords ] = useState([])
-
-    // sum of all income
-    const incomeSum = records
-        .filter(record => record.categoryType === 'Income')
-        .map(record => record.amount)
-        .reduce((total, amount) => total + amount, 0)
-
-    // sum of all expenses
-    const expenseSum = records
-        .filter(record => record.categoryType === 'Expense')
-        .map(record => record.amount)
-        .reduce((total, amount) => total + amount, 0)
+    const [ incomeSum, setIncomeSum ] = useState([])
+    const [ expenseSum, setExpenseSum ] = useState([])
 
     // new array for balance per transaction
     let balanceArr = records.map(record => record.amount),sum
@@ -40,6 +30,20 @@ export default function index() {
             setName(data.firstName)
             setRecords(data.transactions)
             setCategories(data.categories)
+
+            // sum of all income
+            const incomeCalc = data.transactions
+                .filter(record => record.categoryType === 'Income')
+                .map(record => record.amount)
+                .reduce((total, amount) => total + amount, 0)
+            setIncomeSum(incomeCalc)
+
+            // sum of all expenses
+            const expenseCalc = data.transactions
+                .filter(record => record.categoryType === 'Expense')
+                .map(record => record.amount)
+                .reduce((total, amount) => total + amount, 0)
+            setExpenseSum(expenseCalc)
         })
     },[])
 
