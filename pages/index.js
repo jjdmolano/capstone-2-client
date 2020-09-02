@@ -52,7 +52,6 @@ export default function Home() {
             </Col>
         </Row>
     </Jumbotron>
-    <p>Test</p>
     <CardDeck>
     <Card as="button">
         <Card.Img variant="top" src="" />
