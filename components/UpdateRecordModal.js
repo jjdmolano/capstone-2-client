@@ -2,6 +2,7 @@ import { useState, useEffect, useContext } from 'react'
 import UserContext from '../UserContext'
 import { Button, Form, Modal, Col } from 'react-bootstrap'
 import Swal from 'sweetalert2'
+import AppHelper from '../app-helper'
 
 export default function UpdateRecordButton({record, categories, setRecords}) {
     const {user} = useContext(UserContext)
@@ -63,7 +64,7 @@ export default function UpdateRecordButton({record, categories, setRecords}) {
             ? -amount
             : amount
 
-        fetch(`http://localhost:4000/api/users/${user.id}/tr/${record._id}`, {
+        fetch(`${AppHelper.API_URL}/users/${user.id}/tr/${record._id}`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
@@ -80,7 +81,7 @@ export default function UpdateRecordButton({record, categories, setRecords}) {
         .then((res => res.json()))
         .then((data) => {
             data
-            ?   fetch('http://localhost:4000/api/users/details', {
+            ?   fetch(`${AppHelper.API_URL}/users/details`, {
                 headers: {
                     Authorization: `Bearer ${localStorage.getItem('token')}`
                 }

@@ -2,6 +2,7 @@ import { useState, useEffect, useContext } from 'react'
 import { Form, Button, Col } from 'react-bootstrap'
 import Swal from 'sweetalert2'
 import UserContext from '../UserContext'
+import AppHelper from '../app-helper'
 
 export default function AddRecord({categories, setRecords}) {
     const {user} = useContext(UserContext)
@@ -55,7 +56,7 @@ export default function AddRecord({categories, setRecords}) {
             ? -amount
             : amount
 
-        fetch(`http://localhost:4000/api/users/${user.id}/transactions`,
+        fetch(`${AppHelper.API_URL}/users/${user.id}/transactions`,
         {
             method: 'PUT',
             headers: {
@@ -73,7 +74,7 @@ export default function AddRecord({categories, setRecords}) {
         .then(res => res.json())
         .then(data => {
             data
-            ?   fetch('http://localhost:4000/api/users/details', {
+            ?   fetch(`${AppHelper.API_URL}/users/details`, {
                 headers: {
                     Authorization: `Bearer ${localStorage.getItem('token')}`
                 }

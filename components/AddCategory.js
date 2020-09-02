@@ -2,6 +2,7 @@ import { useState, useEffect, useContext } from 'react'
 import { Form, Button, Col } from 'react-bootstrap'
 import Swal from 'sweetalert2'
 import UserContext from '../UserContext'
+import AppHelper from '../app-helper'
 
 export default function AddCategory({setCategories}) {
     const {user} = useContext(UserContext)
@@ -18,7 +19,7 @@ export default function AddCategory({setCategories}) {
 
     function addCategory(e) {
         e.preventDefault()
-        fetch(`http://localhost:4000/api/users/${user.id}/categories`,
+        fetch(`${AppHelper.API_URL}/users/${user.id}/categories`,
         {
             method: 'PUT',
             headers: {
@@ -33,7 +34,7 @@ export default function AddCategory({setCategories}) {
         .then(res => res.json())
         .then(data => {
             data
-            ?   fetch('http://localhost:4000/api/users/details', {
+            ?   fetch(`${AppHelper.API_URL}/users/details`, {
                 headers: {
                     Authorization: `Bearer ${localStorage.getItem('token')}`
                 }

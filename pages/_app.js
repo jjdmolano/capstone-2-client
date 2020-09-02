@@ -4,6 +4,7 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 import { Container } from 'react-bootstrap'
 import NavBar from '../components/NavBar'
 import '../styles/globals.css'
+import AppHelper from '../app-helper'
 
 export default function MyApp({ Component, pageProps }) {
   // Initial global user state is null
@@ -17,7 +18,7 @@ export default function MyApp({ Component, pageProps }) {
 
   // Get user details from API upon user ID state change
   useEffect(() => {
-    fetch('http://localhost:4000/api/users/details', {
+    fetch(`${AppHelper.API_URL}/users/details`, {
       headers: {
         Authorization: `Bearer ${localStorage.getItem('token')}`
       }

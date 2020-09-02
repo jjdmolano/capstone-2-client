@@ -2,6 +2,7 @@ import { useContext } from 'react'
 import UserContext from '../UserContext'
 import { Button } from 'react-bootstrap'
 import Swal from 'sweetalert2'
+import AppHelper from '../app-helper'
 
 export default function DeleteRecordButton({recordId, setRecords}) {
     const {user} = useContext(UserContext)
@@ -16,7 +17,7 @@ export default function DeleteRecordButton({recordId, setRecords}) {
         })
         .then((result) => {
             result.value
-                ?   fetch(`http://localhost:4000/api/users/${user.id}/tr/${recordId}`, {
+                ?   fetch(`${AppHelper.API_URL}/users/${user.id}/tr/${recordId}`, {
                     method: 'DELETE',
                     headers: {
                         Authorization: `Bearer ${localStorage.getItem('token')}`
@@ -25,7 +26,7 @@ export default function DeleteRecordButton({recordId, setRecords}) {
                     .then((res => res.json()))
                     .then((data) => {
                         data
-                        ?   fetch('http://localhost:4000/api/users/details', {
+                        ?   fetch(`${AppHelper.API_URL}/users/details`, {
                             headers: {
                                 Authorization: `Bearer ${localStorage.getItem('token')}`
                             }

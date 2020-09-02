@@ -1,8 +1,9 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useContext } from 'react'
 import { Jumbotron, Row, Col } from 'react-bootstrap'
 import AddRecord from '../../components/AddRecord'
 import RecordList from '../../components/RecordList'
 import Head from 'next/head'
+import AppHelper from '../../app-helper'
 
 export default function index() {
     const [ name, setName ] = useState('')
@@ -30,7 +31,7 @@ export default function index() {
 
     // fetch user records and categories hook
     useEffect(() => {
-        fetch('http://localhost:4000/api/users/details', {
+        fetch(`${AppHelper.API_URL}/users/details`, {
         headers: {
             Authorization: `Bearer ${localStorage.getItem('token')}`
         }

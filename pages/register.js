@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import Router from 'next/router'
 import { Form, Button } from 'react-bootstrap'
+import AppHelper from '../app-helper'
 
 export default function register() {
     const [firstName, setFirstName] = useState('')
@@ -22,7 +23,7 @@ export default function register() {
     function registerUser(e) {
         e.preventDefault()
 
-        fetch('http://localhost:4000/api/users', {
+        fetch(`${AppHelper.API_URL}/users`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'

@@ -3,6 +3,7 @@ import { Jumbotron } from 'react-bootstrap'
 import AddCategory from '../../components/AddCategory'
 import CategoryList from '../../components/CategoryList'
 import Head from 'next/head'
+import AppHelper from '../../app-helper'
 
 export default function index() {
     const [ name, setName ] = useState('')
@@ -10,7 +11,7 @@ export default function index() {
 
     // fetch user categories hook
     useEffect(() => {
-        fetch('http://localhost:4000/api/users/details', {
+        fetch(`${AppHelper.API_URL}/users/details`, {
         headers: {
             Authorization: `Bearer ${localStorage.getItem('token')}`
         }

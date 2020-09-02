@@ -18,3 +18,7 @@ a {
 .main-container {
   padding: 0 15% 0 15%;
 }
+
+.navBar {
+  margin-bottom: 3rem;
+}
