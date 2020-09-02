@@ -20,8 +20,9 @@ export default function LineChart({records}) {
                     label: 'Balance',
                     fill: false,
                     data: chartAmounts,
-                    backgroundColor: 'darkBlue',
-                    borderColor: 'lightBlue'
+                    backgroundColor: '#FF1FA9',
+                    pointBorderColor: '#FF1FA9',
+                    borderColor: '#95C0E8'
                 }],
                 labels: chartDates
             }}

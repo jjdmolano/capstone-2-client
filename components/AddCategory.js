@@ -19,7 +19,7 @@ export default function AddCategory({setCategories}) {
 
     function addCategory(e) {
         e.preventDefault()
-        fetch(`${AppHelper.API_URL}/users/${user.id}/categories`,
+        fetch(`${process.env.NEXT_PUBLIC_API_URL}/users/${user.id}/categories`,
         {
             method: 'PUT',
             headers: {
@@ -34,7 +34,7 @@ export default function AddCategory({setCategories}) {
         .then(res => res.json())
         .then(data => {
             data
-            ?   fetch(`${AppHelper.API_URL}/users/details`, {
+            ?   fetch(`${process.env.NEXT_PUBLIC_API_URL}/users/details`, {
                 headers: {
                     Authorization: `Bearer ${localStorage.getItem('token')}`
                 }
@@ -73,21 +73,21 @@ export default function AddCategory({setCategories}) {
     return (
         <Form onSubmit={(e) => addCategory(e)} className={styles.form}>
             <Form.Row>
-                <Form.Label column className="pl-3 col-auto">Add Category:</Form.Label>
-                <Col className="col-4">
+                <Form.Label className={styles.formItems} column>Add Category:</Form.Label>
+                <Col className={styles.formItems}>
                     <Form.Control type="text" placeholder="Category Name" value={categoryName} onChange={e => setCategoryName(e.target.value)} required />
                 </Col>
-                <Form.Label column className="pl-3 col-auto">Select Type:</Form.Label>
-                <Col className="col-3">
-                    <Form.Control as="select" placeholder="Category Type" value={categoryType} onChange={e => setCategoryType(e.target.value)} required >
+                <Form.Label  className={styles.formItems} column>Select Type:</Form.Label>
+                <Col className={styles.formItems}>
+                    <Form.Control as="select" value={categoryType} onChange={e => setCategoryType(e.target.value)} required >
                         <option>Expense</option>
                         <option>Income</option>
                     </Form.Control>
                 </Col>
-                <Col className="pl-4">
+                <Col className={styles.buttonContainer}>
                     { isActive === true
-                    ? <Button type="submit" block variant="success">+</Button>
-                    : <Button type="submit" block variant="outline-success" disabled>+</Button>}
+                    ? <Button className={styles.button} type="submit" variant="success" block><h1>+</h1></Button>
+                    : <Button className={styles.button}type="submit" variant="outline-success" block disabled><h1>+</h1></Button>}
                 </Col>
             </Form.Row>
         </Form>

@@ -1,8 +1,10 @@
 import { useState, useEffect } from 'react'
 import { Doughnut } from 'react-chartjs-2'
 import { Form } from 'react-bootstrap'
+import styles from './DoughnutChart.module.css'
 
 export default function DoughnutChart({records}) {
+
     // array and label of all records
     const allRecords = records.map(record => record.amount)
     const allLabels = records.map(record => `${record.description} (${record.categoryName})`)
@@ -19,7 +21,7 @@ export default function DoughnutChart({records}) {
     const [ chartLabels, setChartLabels ] = useState(allLabels)
     const [ labelSelector, setLabelSelector ] = useState('All Records')
 
-    const colors = ["darkBlue","indigo", "darkViolet","darkRed","darkGreen","darkOrange","yellow","red","lightBlue","darkBlue","indigo", "darkViolet","darkRed","darkGreen","darkOrange","yellow","red","lightBlue","darkBlue","indigo", "darkViolet","darkRed","darkGreen","darkOrange","yellow","red","lightBlue","darkBlue","indigo", "darkViolet","darkRed","darkGreen","darkOrange","yellow","red","lightBlue","darkBlue","indigo", "darkViolet","darkRed","darkGreen","darkOrange","yellow","red","lightBlue","darkBlue","indigo", "darkViolet","darkRed","darkGreen","darkOrange","yellow","red","lightBlue","darkBlue","indigo", "darkViolet","darkRed","darkGreen","darkOrange","yellow","red","lightBlue","darkBlue","indigo", "darkViolet","darkRed","darkGreen","darkOrange","yellow","red","lightBlue","darkBlue","indigo", "darkViolet","darkRed","darkGreen","darkOrange","yellow","red","lightBlue","darkBlue","indigo", "darkViolet","darkRed","darkGreen","darkOrange","yellow","red","lightBlue"]
+    const colors = ["#4F7CAC","#ABDF75","#C0E0DE","#F3B3A6","#CEFDFF","#B98B82","#D6F9DD","#E4959E","#C5D6D8","#CB958E","#99F7AB","#7E78D2","#8E9DCC","#7D84B2","#9EEFE5","#4F7CAC","#ABDF75","#C0E0DE","#F3B3A6","#CEFDFF","#B98B82","#D6F9DD","#E4959E","#C5D6D8","#CB958E","#99F7AB","#7E78D2","#8E9DCC","#7D84B2","#9EEFE5","#4F7CAC","#ABDF75","#C0E0DE","#F3B3A6","#CEFDFF","#B98B82","#D6F9DD","#E4959E","#C5D6D8","#CB958E","#99F7AB","#7E78D2","#8E9DCC","#7D84B2","#9EEFE5","#4F7CAC","#ABDF75","#C0E0DE","#F3B3A6","#CEFDFF","#B98B82","#D6F9DD","#E4959E","#C5D6D8","#CB958E","#99F7AB","#7E78D2","#8E9DCC","#7D84B2","#9EEFE5"]
 
     // pre-load amounts and labels once record prop gets passed hook
     useEffect(() => {
@@ -51,7 +53,7 @@ export default function DoughnutChart({records}) {
 
     return (
         <>
-        <Form>
+        <Form className={styles.form}>
             <Form.Label>Filter Records by Type:</Form.Label>
             <Form.Control as="select" value={labelSelector} onChange={e => filterType(e)}>
                 <option>All Records</option>
@@ -63,8 +65,8 @@ export default function DoughnutChart({records}) {
             data={{
                 datasets:[{
                     data: chartAmounts,
-                    backgroundColor: colors
-
+                    backgroundColor: colors,
+                    borderColor: '#363636'
                 }],
                 labels: chartLabels
             }}
