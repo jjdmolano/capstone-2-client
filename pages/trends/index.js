@@ -1,8 +1,11 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useContext } from 'react'
+import UserContext from '../../UserContext'
+import { Container, Image } from 'react-bootstrap'
 import LineChart from '../../components/LineChart'
 import Head from 'next/head'
 
 export default function index() {
+    const { user } = useContext(UserContext)
     const [ records, setRecords ] = useState([])
 
     // fetch user records hook
@@ -21,7 +24,13 @@ export default function index() {
     return (
         <>
         <Head><title>Trends</title></Head>
-        <LineChart records={records} />
+        {
+        (user.id === null)
+        ?   <Container className="error-container" fluid>
+                <Image className="error-img" src="/error.svg" fluid></Image>
+            </Container>
+        :   <LineChart records={records} />
+        }
         </>
     )
 }
