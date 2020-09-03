@@ -1,9 +1,14 @@
+.listContainer {
+    border-radius: 8px;
+    border-top-left-radius: 0px;
+}
+
 .list {
     padding: 0;
     text-decoration: none;
     background-color: #c4c4c4;
     color:#242424;
-    border-width: 0px;
+    border-width: 1px;
     border-radius: 0px;
     border-top-right-radius: 8px;
     border-bottom-right-radius: 8px;
@@ -11,13 +16,16 @@
     width: 100%;
 }
 
+.subList {
+    display: flex;
+    flex-direction: column;
+}
+
 .listItems {
     margin: 0;
-    padding: 0;
-    display: flex;
-    flex-direction: row;
-    text-align: end;
-    align-items: center;
+    padding: 0 0 0 2em;
+    display: grid;
+    grid-template-columns: repeat(3, 2fr) 1fr;
 }
 
 .listItems:hover {
@@ -32,6 +40,7 @@
 .listItemLabels {
     padding: 1em;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-content: center;
 }
@@ -40,6 +49,8 @@
     margin-left: 2em;
     padding: 0 0 0 0.7em;
     display: flex;
+    flex-direction: row;
+    align-content: flex-end;
     min-height: 4em;
     max-width: 5em;
 }

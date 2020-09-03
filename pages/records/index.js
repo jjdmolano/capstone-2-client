@@ -1,10 +1,12 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useContext } from 'react'
+import UserContext from '../../UserContext'
 import { Jumbotron, Container, Image, Row, Col } from 'react-bootstrap'
 import AddRecord from '../../components/AddRecord'
 import RecordList from '../../components/RecordList'
 import Head from 'next/head'
 
 export default function index() {
+    const { user } = useContext(UserContext)
     const [ name, setName ] = useState('')
     const [ categories, setCategories ] = useState([])
     const [ records, setRecords ] = useState([])
@@ -50,30 +52,40 @@ export default function index() {
     return (
         <>
         <Head><title>Records</title></Head>
-        {categories.length === 0 && records.length === 0
+        {
+        (user.id === null)
         ?   <Container className="error-container" fluid>
-                <a href="/categories">
-                    <Image className="error-img" src="/errorrecord.svg" fluid />
+                <a href="/login">
+                    <Image className="error-img" src="/errorlog.svg" fluid />
                 </a>
             </Container>
         :   <>
-            <Jumbotron className="recordJumbotron">
-                <Row>
-                    <Image className="recordpage-img" src="/jumbotron.png" fluid />
-                    <Col className="recordInfo">
-                        <h1>{name}'s Account</h1>
-                        <h4>Your Current Balance is: PHP {currentBalance}</h4>
-                        <h5>Total Income: PHP {incomeSum}</h5>
-                        <h5>Total Expenses: PHP {Math.abs(expenseSum)}</h5>
-                    </Col>
-                </Row>
-            </Jumbotron>
-            <AddRecord categories={categories} setRecords={setRecords} />
-            {(records.length === 0)
+            {categories.length === 0 && records.length === 0
             ?   <Container className="error-container" fluid>
-                    <Image className="error-img" src="/errorempty.svg" fluid></Image>
+                    <a href="/categories">
+                        <Image className="error-img" src="/errorrecord.svg" fluid />
+                    </a>
                 </Container>
-            :   <RecordList records={records} categories={categories} setRecords={setRecords} />
+            :   <>
+                <Jumbotron className="recordJumbotron">
+                    <Row>
+                        <Image className="recordpage-img" src="/jumbotron.png" fluid />
+                        <Col className="recordInfo">
+                            <h1>{name}'s Account</h1>
+                            <h4>Your Current Balance is: PHP {currentBalance}</h4>
+                            <h5>Total Income: PHP {incomeSum}</h5>
+                            <h5>Total Expenses: PHP {Math.abs(expenseSum)}</h5>
+                        </Col>
+                    </Row>
+                </Jumbotron>
+                <AddRecord categories={categories} setRecords={setRecords} />
+                {(records.length === 0)
+                ?   <Container className="error-container" fluid>
+                        <Image className="error-img" src="/errorempty.svg" fluid></Image>
+                    </Container>
+                :   <RecordList records={records} categories={categories} setRecords={setRecords} />
+                }
+                </>
             }
             </>
         }

@@ -5,8 +5,7 @@
 }
 
 .modalButton {
-    border-top-right-radius: 0px;
-    border-bottom-right-radius: 0px;
+    border-radius: 0px;
 }
 
 .form {

@@ -1,10 +1,12 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useContext } from 'react'
+import UserContext from '../../UserContext'
 import { Container, Image } from 'react-bootstrap'
 import AddCategory from '../../components/AddCategory'
 import CategoryList from '../../components/CategoryList'
 import Head from 'next/head'
 
 export default function index() {
+    const { user } = useContext(UserContext)
     const [ name, setName ] = useState('')
     const [ categories, setCategories ] = useState([])
 
@@ -25,12 +27,22 @@ export default function index() {
     return (
         <>
         <Head><title>Categories</title></Head>
-        <AddCategory setCategories={setCategories} />
-        {categories.length === 0
+        {
+        (user.id === null)
         ?   <Container className="error-container" fluid>
-                <Image className="error-img" src="/errorempty.svg" fluid></Image>
+            <a href="/login">
+                <Image className="error-img" src="/errorlog.svg" fluid />
+            </a>
             </Container>
-        :   <CategoryList categories={categories} setCategories={setCategories} />
+        :   <>
+            <AddCategory setCategories={setCategories} />
+            {categories.length === 0
+            ?   <Container className="error-container" fluid>
+                    <Image className="error-img" src="/errorempty.svg" fluid></Image>
+                </Container>
+            :   <CategoryList categories={categories} setCategories={setCategories} />
+            }
+            </>
         }
         </>
     )

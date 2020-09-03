@@ -6,7 +6,7 @@ import styles from './RecordList.module.css'
 export default function RecordList({records, categories, setRecords}) {
 
     return (
-        <ListGroup>
+        <ListGroup className={styles.listContainer}>
                 {records.map(record => {
                     const recordDate = new Date(record.dateAdded).toLocaleString('en-US',{
                         month:'short',
@@ -19,10 +19,18 @@ export default function RecordList({records, categories, setRecords}) {
                     return (
                         <ListGroup.Item className={styles.list} key={record._id}>
                         <Row className={styles.listItems}>
-                            <Col className={styles.listItemLabels}>{record.description}</Col>
-                            <Col className={styles.listItemLabels}>{Math.abs(record.amount)}</Col>
-                            <Col className={styles.listItemLabels}>{record.categoryName}</Col>
-                            <Col className={styles.listItemLabels}>{record.categoryType}</Col>
+                            <Col>
+                                <Row className={styles.subList}>
+                                    <Col className={styles.listItemLabels}>{record.description}</Col>
+                                    <Col className={styles.listItemLabels}><strong>{Math.abs(record.amount)}</strong></Col>
+                                </Row>
+                            </Col>
+                            <Col>
+                                <Row className={styles.subList}>
+                                    <Col className={styles.listItemLabels}>{record.categoryName}</Col>
+                                    <Col className={styles.listItemLabels}>{record.categoryType}</Col>
+                                </Row>
+                            </Col>
                             <Col className={styles.listItemLabels}>{recordDate}</Col>
                             <Col className={styles.buttonContainer}>
                             <UpdateRecordModal className={styles.button} record={record} categories={categories} setRecords={setRecords} />
