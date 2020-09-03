@@ -75,7 +75,7 @@ export default function AddCategory({setCategories}) {
             <Form.Row>
                 <Form.Label className={styles.formItems} column>Add Category:</Form.Label>
                 <Col className={styles.formItems}>
-                    <Form.Control type="text" placeholder="Category Name" value={categoryName} onChange={e => setCategoryName(e.target.value)} required />
+                    <Form.Control className={styles.formInput} type="text" placeholder="Category Name" value={categoryName} onChange={e => setCategoryName(e.target.value)} required />
                 </Col>
                 <Form.Label  className={styles.formItems} column>Select Type:</Form.Label>
                 <Col className={styles.formItems}>

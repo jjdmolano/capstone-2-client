@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { Jumbotron, Row, Col } from 'react-bootstrap'
+import { Jumbotron, Container, Image, Row, Col } from 'react-bootstrap'
 import AddRecord from '../../components/AddRecord'
 import RecordList from '../../components/RecordList'
 import Head from 'next/head'
@@ -51,9 +51,11 @@ export default function index() {
         <>
         <Head><title>Records</title></Head>
         {categories.length === 0 && records.length === 0
-        ?   <Jumbotron>
-                <p>You need to create a category first before adding a record.</p>
-            </Jumbotron>
+        ?   <Container className="error-container" fluid>
+                <a href="/categories">
+                <Image className="error-img" src="/errorrecord.svg" fluid></Image>
+                </a>
+            </Container>
         :   <>
             <Jumbotron className="py-3">
                 <h1>{name}'s Account</h1>
@@ -69,9 +71,9 @@ export default function index() {
             </Jumbotron>
             <AddRecord categories={categories} setRecords={setRecords} />
             {(records.length === 0)
-            ?   <Jumbotron>
-                    <p>We couldn't find any records, {name}. Why not make one above?</p>
-                </Jumbotron>
+            ?   <Container className="error-container" fluid>
+                    <Image className="error-img" src="/errorempty.svg" fluid></Image>
+                </Container>
             :   <RecordList records={records} categories={categories} setRecords={setRecords} />
             }
             </>

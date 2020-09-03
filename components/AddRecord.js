@@ -2,6 +2,7 @@ import { useState, useEffect, useContext } from 'react'
 import { Form, Button, Col } from 'react-bootstrap'
 import Swal from 'sweetalert2'
 import UserContext from '../UserContext'
+import styles from './AddRecord.module.css'
 
 export default function AddRecord({categories, setRecords}) {
     const {user} = useContext(UserContext)
@@ -112,38 +113,40 @@ export default function AddRecord({categories, setRecords}) {
     }
 
     return (
-        <Form onSubmit={(e) => addRecord(e)} className="pb-2">
-        <Form.Row className="pb-2">
-                <Form.Label column className="pl-3 col-auto">Add Transaction:</Form.Label>
-                <Col className="col-6">
-                    <Form.Control type="text" placeholder="Description here" value={description} onChange={e => setDescription(e.target.value)} required />
-                </Col>
-                <Form.Label column className="pl-3 col-auto">Amount:</Form.Label>
-                <Col>
-                    <Form.Control type="text" value={amount} onChange={e => setAmount(e.target.value)} required />
-                </Col>
-            </Form.Row>
+        <Form onSubmit={(e) => addRecord(e)}  className={styles.form}>
             <Form.Row>
-                <Form.Label column className="pl-3 col-auto">Category:</Form.Label>
-                <Col className="col-4">
-                    <Form.Control as="select" value={categoryName} onChange={e => setCategoryName(e.target.value)} required>
-                        {categories.map(category => {
-                          return (
-                              <option key={category._id}>{category.categoryName}</option>
-                          )
-                        })
-                        }
-                    </Form.Control>
-                </Col>
-                <Form.Label column className="pl-3 col-auto">Type:</Form.Label>
-                <Col className="col-2">
-                    <Form.Control type="text" placeholder={categoryType} readOnly />
-                </Col>
                 <Col>
+                    <Form.Row className={styles.formContainer}>
+                    <Form.Label className={styles.formItems}  column>Add Transaction:</Form.Label>
+                        <Col>
+                            <Form.Control className={styles.formInput} type="text" placeholder="Description here" value={description} onChange={e => setDescription(e.target.value)} required />
+                        </Col>
+                    <Form.Label className={styles.formItems}  column>Category:</Form.Label>
+                        <Col>
+                            <Form.Control className={styles.formInput} as="select" value={categoryName} onChange={e => setCategoryName(e.target.value)} required>
+                                {categories.map(category => {
+                                return (
+                                    <option key={category._id}>{category.categoryName}</option>
+                                )
+                                })
+                                }
+                            </Form.Control>
+                        </Col>
+                    <Form.Label className={styles.formItems}  column>Amount:</Form.Label>
+                        <Col>
+                            <Form.Control className={styles.formInput} type="text" value={amount} onChange={e => setAmount(e.target.value)} required />
+                        </Col>
+                    <Form.Label className={styles.formItems}  column>Type:</Form.Label>
+                        <Col>
+                        <Form.Control className={styles.formInputRead} type="text" placeholder={categoryType} readOnly />
+                        </Col>
+                    </Form.Row>
+                </Col>
+                <Col className={styles.buttonContainer}>
                 { isActive === true
-                ? <Button type="submit" block variant="success">+</Button>
-                : <Button type="submit" block variant="outline-success" disabled>+</Button>}
-            </Col>
+                ? <Button type="submit" className={styles.button} block variant="success">+</Button>
+                : <Button type="submit" className={styles.button} block variant="outline-success" disabled>+</Button>}
+                </Col>
             </Form.Row>
         </Form>
     )

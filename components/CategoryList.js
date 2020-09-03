@@ -1,18 +1,18 @@
 import { Row, Col, ListGroup } from 'react-bootstrap'
 import DeleteCategoryButton from '../components/DeleteCategoryButton'
+import styles from './CategoryList.module.css'
 
 export default function CategoryList({categories, setCategories}) {
-
     return (
-        <ListGroup>
+        <ListGroup className={styles.listContainer}>
             {categories.map(category => {
                 return (
-                    <ListGroup.Item key={category._id}>
-                    <Row>
-                        <Col className="col-9">{category.categoryName}</Col>
-                        <Col className="col-1">{category.categoryType}</Col>
-                        <Col className="col-2">
-                            <DeleteCategoryButton categoryId={category._id} setCategories={setCategories} />
+                    <ListGroup.Item key={category._id} className={styles.list}>
+                    <Row className={styles.listItems}>
+                        <Col className={styles.listItemLabels}>{category.categoryName}</Col>
+                        <Col className={styles.listItemLabels}>{category.categoryType}</Col>
+                        <Col className={styles.buttonContainer}>
+                            <DeleteCategoryButton className={styles.button} categoryId={category._id} setCategories={setCategories} />
                         </Col>
                     </Row>
                     </ListGroup.Item>

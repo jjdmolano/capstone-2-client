@@ -52,10 +52,15 @@ a {
 }
 
 .error-img {
+    margin-top: 2em;
     width: 50vw;
 }
 
 /* Home Page */
+.card-deck {
+    margin-top: 8em;
+}
+
 .card {
     text-decoration: none;
     background-color: #242424;
@@ -163,4 +168,12 @@ a {
     color: #797979;
     border-color: #2A4E96;
     border-radius: 2px;
+}
+
+/* Charts */
+
+.chartjs-render-monitor {
+    background-color: #d1d1d1;
+    padding: 0.5em;
+    border-radius: 5px;
 }

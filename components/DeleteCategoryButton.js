@@ -2,6 +2,7 @@ import { useContext } from 'react'
 import UserContext from '../UserContext'
 import { Button } from 'react-bootstrap'
 import Swal from 'sweetalert2'
+import styles from './DeleteCategoryButton.module.css'
 
 export default function DeleteCategoryButton({categoryId, setCategories}) {
     const {user} = useContext(UserContext)
@@ -64,6 +65,6 @@ export default function DeleteCategoryButton({categoryId, setCategories}) {
     }
 
     return(
-        <Button variant="danger" block onClick={() => deleteCategory(categoryId)} >Delete</Button>
+        <Button variant="outline-danger" size="lg" className={styles.button} block onClick={() => deleteCategory(categoryId)} ><h1>-</h1></Button>
     )
 }

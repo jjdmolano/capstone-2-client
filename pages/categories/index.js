@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { Jumbotron } from 'react-bootstrap'
+import { Container, Image } from 'react-bootstrap'
 import AddCategory from '../../components/AddCategory'
 import CategoryList from '../../components/CategoryList'
 import Head from 'next/head'
@@ -27,9 +27,9 @@ export default function index() {
         <Head><title>Categories</title></Head>
         <AddCategory setCategories={setCategories} />
         {categories.length === 0
-        ?   <Jumbotron>
-                <p>We couldn't find any categories, {name}. Why not make one above?</p>
-            </Jumbotron>
+        ?   <Container className="error-container" fluid>
+                <Image className="error-img" src="/errorempty.svg" fluid></Image>
+            </Container>
         :   <CategoryList categories={categories} setCategories={setCategories} />
         }
         </>
