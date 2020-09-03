@@ -170,8 +170,29 @@ a {
     border-radius: 2px;
 }
 
-/* Charts */
+/* Records Page */
+.recordJumbotron {
+    margin-bottom: 3em;
+    background-color: #242424;
+    color:#c4c4c4;
+    border-color: #524a4a;
+    border-top-color: #204eb2;
+    border-top-width: 2px;
+    border-radius: 8px;
+}
 
+.recordpage-img {
+    margin: 0 5em 0 2em;
+}
+
+.recordInfo {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-content: center;
+}
+
+/* Charts */
 .chartjs-render-monitor {
     background-color: #d1d1d1;
     padding: 0.5em;

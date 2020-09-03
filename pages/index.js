@@ -13,7 +13,7 @@ export default function Home() {
     (user.id === null)
     ?   <Container className="error-container" fluid>
             <a href="/login">
-            <Image className="error-img" src="/errorlog.svg" fluid></Image>
+                <Image className="error-img" src="/errorlog.svg" fluid />
             </a>
         </Container>
     :   <CardDeck className="card-deck">

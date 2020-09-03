@@ -53,17 +53,16 @@ export default function index() {
         {categories.length === 0 && records.length === 0
         ?   <Container className="error-container" fluid>
                 <a href="/categories">
-                <Image className="error-img" src="/errorrecord.svg" fluid></Image>
+                    <Image className="error-img" src="/errorrecord.svg" fluid />
                 </a>
             </Container>
         :   <>
-            <Jumbotron className="py-3">
-                <h1>{name}'s Account</h1>
+            <Jumbotron className="recordJumbotron">
                 <Row>
-                    <Col className="col-7">
-                        <h3>Your current Balance is: PHP {currentBalance}</h3>
-                    </Col>
-                    <Col className="col-5">
+                    <Image className="recordpage-img" src="/jumbotron.png" fluid />
+                    <Col className="recordInfo">
+                        <h1>{name}'s Account</h1>
+                        <h4>Your Current Balance is: PHP {currentBalance}</h4>
                         <h5>Total Income: PHP {incomeSum}</h5>
                         <h5>Total Expenses: PHP {Math.abs(expenseSum)}</h5>
                     </Col>
