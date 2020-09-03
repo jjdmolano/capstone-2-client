@@ -1,0 +1,54 @@
+.modalHead {
+    text-decoration: none;
+    background-color: #242424;
+    color:#c4c4c4;
+}
+
+.modalButton {
+    border-top-right-radius: 0px;
+    border-bottom-right-radius: 0px;
+}
+
+.form {
+    text-decoration: none;
+    background-color: #242424;
+    color:#c4c4c4;
+    border-color: #242424;
+    display: grid;
+    width: 100%;
+}
+
+.formContainer {
+    padding: 1em;
+    display: grid;
+    grid-template-columns: 1fr 2fr 1fr 2fr;
+    grid-template-rows: 1fr 1fr;
+    row-gap: 1em;
+    align-items: center;
+}
+
+.formItems {
+    display: flex;
+    flex-direction: row-reverse;
+}
+
+.formInput {
+    min-width: 12em;
+    max-width: 12em;
+}
+
+.formInputRead {
+    background-color: #242424 !important;
+    border-color: #242424 !important;
+    min-width: 6em;
+    max-width: 6em;
+}
+
+.buttonContainer {
+    display: flex;
+    max-width: 5em;
+}
+
+.button {
+    border-radius: 8px;
+}

@@ -1,6 +1,7 @@
 import { Row, Col, ListGroup } from 'react-bootstrap'
 import DeleteRecordButton from '../components/DeleteRecordButton'
 import UpdateRecordModal from './UpdateRecordModal'
+import styles from './RecordList.module.css'
 
 export default function RecordList({records, categories, setRecords}) {
 
@@ -16,16 +17,16 @@ export default function RecordList({records, categories, setRecords}) {
                         minute:'2-digit'
                     })
                     return (
-                        <ListGroup.Item key={record._id}>
-                        <Row>
-                            <Col className="col-2">{record.categoryName}</Col>
-                            <Col className="col-1">{record.categoryType}</Col>
-                            <Col className="col-2">{record.description}</Col>
-                            <Col className="col-1">{Math.abs(record.amount)}</Col>
-                            <Col className="col-4">{recordDate}</Col>
-                            <Col className="col-2">
-                            <UpdateRecordModal record={record} categories={categories} setRecords={setRecords} />
-                            <DeleteRecordButton recordId={record._id} setRecords={setRecords} />
+                        <ListGroup.Item className={styles.list} key={record._id}>
+                        <Row className={styles.listItems}>
+                            <Col className={styles.listItemLabels}>{record.description}</Col>
+                            <Col className={styles.listItemLabels}>{Math.abs(record.amount)}</Col>
+                            <Col className={styles.listItemLabels}>{record.categoryName}</Col>
+                            <Col className={styles.listItemLabels}>{record.categoryType}</Col>
+                            <Col className={styles.listItemLabels}>{recordDate}</Col>
+                            <Col className={styles.buttonContainer}>
+                            <UpdateRecordModal className={styles.button} record={record} categories={categories} setRecords={setRecords} />
+                            <DeleteRecordButton className={styles.button} recordId={record._id} setRecords={setRecords} />
                             </Col>
                         </Row>
                         </ListGroup.Item>

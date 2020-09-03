@@ -1,0 +1,6 @@
+.button {
+    margin-top: 0 !important;
+    border-radius: 0;
+    border-top-right-radius: 8px;
+    border-bottom-right-radius: 8px;
+}

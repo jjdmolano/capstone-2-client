@@ -2,6 +2,7 @@ import { useContext } from 'react'
 import UserContext from '../UserContext'
 import { Button } from 'react-bootstrap'
 import Swal from 'sweetalert2'
+import styles from './DeleteRecordButton.module.css'
 
 export default function DeleteRecordButton({recordId, setRecords}) {
     const {user} = useContext(UserContext)
@@ -64,6 +65,6 @@ export default function DeleteRecordButton({recordId, setRecords}) {
     }
 
     return(
-        <Button variant="danger" block onClick={() => deleteRecord(recordId)} >Delete</Button>
+        <Button variant="outline-danger" size="lg" className={styles.button} block onClick={() => deleteRecord(recordId)} ><h1>-</h1></Button>
     )
 }

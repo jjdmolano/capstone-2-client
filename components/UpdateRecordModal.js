@@ -2,6 +2,7 @@ import { useState, useEffect, useContext } from 'react'
 import UserContext from '../UserContext'
 import { Button, Form, Modal, Col } from 'react-bootstrap'
 import Swal from 'sweetalert2'
+import styles from './UpdateRecordModal.module.css'
 
 export default function UpdateRecordButton({record, categories, setRecords}) {
     const {user} = useContext(UserContext)
@@ -120,44 +121,46 @@ export default function UpdateRecordButton({record, categories, setRecords}) {
 
     return(
         <>
-        <Button variant="secondary" block onClick={showModal}>Update</Button>
+        <Button variant="outline-secondary" className={styles.modalButton} block onClick={showModal}><small>Edit</small></Button>
         <Modal show={show} onHide={closeModal} centered size="lg">
-            <Modal.Header closeButton>
+            <Modal.Header className={styles.modalHead} closeButton>
                 <Modal.Title>Update Record</Modal.Title>
             </Modal.Header>
-            <Modal.Body>
+            <Modal.Body className={styles.form}>
             <Form onSubmit={(e) => updateRecord(e)}>
-            <Form.Row className="pb-2">
-                <Form.Label column className="pl-3 col-auto">Update Transaction:</Form.Label>
-                <Col className="col-6">
-                    <Form.Control type="text" placeholder={record.description} value={description} onChange={e => setDescription(e.target.value)} required />
-                </Col>
-                <Form.Label column className="pl-3 col-auto">Amount:</Form.Label>
-                <Col>
-                    <Form.Control type="text" placeholder={Math.abs(record.amount)} value={amount} onChange={e => setAmount(e.target.value)} required />
-                </Col>
-            </Form.Row>
             <Form.Row>
-                <Form.Label column className="pl-3 col-auto">Category:</Form.Label>
-                <Col className="col-4">
-                    <Form.Control as="select" value={categoryName} onChange={e => setCategoryName(e.target.value)} required>
-                        {categories.map(category => {
-                          return (
-                              <option key={category._id}>{category.categoryName}</option>
-                          )
-                        })
-                        }
-                    </Form.Control>
-                </Col>
-                <Form.Label column className="pl-3 col-auto">Type:</Form.Label>
-                <Col className="col-2">
-                    <Form.Control type="text" placeholder={categoryType} readOnly />
-                </Col>
                 <Col>
+                    <Form.Row  className={styles.formContainer}>
+                        <Form.Label column className={styles.formItems}>Name:</Form.Label>
+                            <Col>
+                                <Form.Control className={styles.formInput} type="text" placeholder={record.description} value={description} onChange={e => setDescription(e.target.value)} required />
+                            </Col>
+                        <Form.Label column className={styles.formItems}>Amount:</Form.Label>
+                            <Col>
+                                <Form.Control className={styles.formInput} type="text" placeholder={Math.abs(record.amount)} value={amount} onChange={e => setAmount(e.target.value)} required />
+                            </Col>
+                        <Form.Label column className={styles.formItems}>Category:</Form.Label>
+                            <Col>
+                                <Form.Control className={styles.formInput} as="select" value={categoryName} onChange={e => setCategoryName(e.target.value)} required>
+                                    {categories.map(category => {
+                                    return (
+                                        <option key={category._id}>{category.categoryName}</option>
+                                    )
+                                    })
+                                    }
+                                </Form.Control>
+                            </Col>
+                        <Form.Label column className={styles.formItems}>Type:</Form.Label>
+                            <Col>
+                                <Form.Control className={styles.formInputRead} type="text" placeholder={categoryType} readOnly />
+                            </Col>
+                    </Form.Row>
+                </Col>
+                <Col className={styles.buttonContainer}>
                 { isActive === true
-                ? <Button type="submit" block variant="success">+</Button>
-                : <Button type="submit" block variant="outline-success" disabled>+</Button>}
-            </Col>
+                ? <Button type="submit" className={styles.button} block variant="success">+</Button>
+                : <Button type="submit" className={styles.button} block variant="outline-success" disabled>+</Button>}
+                </Col>
             </Form.Row>
             </Form>
             </Modal.Body>
