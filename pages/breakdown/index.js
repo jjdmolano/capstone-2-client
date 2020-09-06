@@ -1,11 +1,9 @@
-import { useState, useEffect, useContext } from 'react'
-import UserContext from '../../UserContext'
+import { useState, useEffect } from 'react'
 import { Container, Image } from 'react-bootstrap'
 import DoughnutChart from '../../components/DoughnutChart';
 import Head from 'next/head'
 
 export default function index() {
-    const { user } = useContext(UserContext)
     const [ records, setRecords ] = useState([])
 
     // fetch user records hook
@@ -25,7 +23,7 @@ export default function index() {
         <>
         <Head><title>Breakdown</title></Head>
         {
-        (user.id === null)
+        (records.length < 1)
         ?   <Container className="error-container" fluid>
                 <Image className="error-img" src="/error.svg" fluid></Image>
             </Container>

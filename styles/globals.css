@@ -27,6 +27,10 @@ a {
     background-color: #363636;
 }
 
+.logo {
+    width: 2em;
+}
+
 .navbar .navbar-brand,
 .navbar .navbar-brand:visited,
 .navbar .navbar-collapse .navbar-nav .nav-link,
@@ -181,6 +185,12 @@ a {
     border-radius: 8px;
 }
 
+.recordJumbotron .row {
+    display: flex;
+    align-content: center;
+    justify-content: center;
+}
+
 .recordpage-img {
     margin: 0 5em 0 2em;
 }
@@ -190,6 +200,7 @@ a {
     flex-direction: column;
     justify-content: center;
     align-content: center;
+    max-width: 27em;
 }
 
 /* Charts */

@@ -8,6 +8,10 @@
     border-radius: 0px;
 }
 
+.modalImg {
+    width: 70%;
+}
+
 .form {
     text-decoration: none;
     background-color: #242424;

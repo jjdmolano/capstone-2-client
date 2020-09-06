@@ -144,8 +144,8 @@ export default function AddRecord({categories, setRecords}) {
                 </Col>
                 <Col className={styles.buttonContainer}>
                 { isActive === true
-                ? <Button type="submit" className={styles.button} block variant="success">+</Button>
-                : <Button type="submit" className={styles.button} block variant="outline-success" disabled>+</Button>}
+                ? <Button type="submit" className={styles.button} block variant="success"><h1>+</h1></Button>
+                : <Button type="submit" className={styles.button} block variant="outline-success" disabled><h1>+</h1></Button>}
                 </Col>
             </Form.Row>
         </Form>

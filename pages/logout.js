@@ -7,7 +7,7 @@ export default function logout() {
 
     useEffect(() => {
         unsetUser()
-        Router.push('/login')
+        Router.push('/')
     },[])
     return null
 }

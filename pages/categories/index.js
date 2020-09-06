@@ -30,7 +30,7 @@ export default function index() {
         {
         (user.id === null)
         ?   <Container className="error-container" fluid>
-            <a href="/login">
+            <a href="/">
                 <Image className="error-img" src="/errorlog.svg" fluid />
             </a>
             </Container>

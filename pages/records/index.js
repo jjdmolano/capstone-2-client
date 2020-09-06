@@ -20,6 +20,13 @@ export default function index() {
     // get current total balance
     const currentBalance = balanceArr.slice(-1)
 
+    // set colors for income/expense
+    const incomeStyle = {color: "#588E29"}
+    const totalIncomeStyle = {color: "#588E29"}
+    const expenseStyle = {color: "#C8040E"}
+    const totalExpenseStyle = {color: "#C8040E"}
+    const amountStyle = (currentBalance >= 0) ? incomeStyle : expenseStyle
+
     // fetch user records and categories hook
     useEffect(() => {
         fetch(`${process.env.NEXT_PUBLIC_API_URL}/users/details`, {
@@ -55,7 +62,7 @@ export default function index() {
         {
         (user.id === null)
         ?   <Container className="error-container" fluid>
-                <a href="/login">
+                <a href="/">
                     <Image className="error-img" src="/errorlog.svg" fluid />
                 </a>
             </Container>
@@ -72,9 +79,9 @@ export default function index() {
                         <Image className="recordpage-img" src="/jumbotron.png" fluid />
                         <Col className="recordInfo">
                             <h1>{name}'s Account</h1>
-                            <h4>Your Current Balance is: PHP {currentBalance}</h4>
-                            <h5>Total Income: PHP {incomeSum}</h5>
-                            <h5>Total Expenses: PHP {Math.abs(expenseSum)}</h5>
+                            <h4>Your Current Balance is: PHP <span style={amountStyle}>{currentBalance}</span></h4>
+                            <h5>Total Income: PHP <span style={totalIncomeStyle}>{incomeSum}</span></h5>
+                            <h5>Total Expenses: PHP <span style={totalExpenseStyle}>{Math.abs(expenseSum)}</span></h5>
                         </Col>
                     </Row>
                 </Jumbotron>
@@ -83,7 +90,7 @@ export default function index() {
                 ?   <Container className="error-container" fluid>
                         <Image className="error-img" src="/errorempty.svg" fluid></Image>
                     </Container>
-                :   <RecordList records={records} categories={categories} setRecords={setRecords} />
+                :   <RecordList records={records} categories={categories} setRecords={setRecords} incomeStyle={incomeStyle} expenseStyle={expenseStyle} />
                 }
                 </>
             }

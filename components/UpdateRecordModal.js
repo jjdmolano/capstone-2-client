@@ -1,6 +1,6 @@
 import { useState, useEffect, useContext } from 'react'
 import UserContext from '../UserContext'
-import { Button, Form, Modal, Col } from 'react-bootstrap'
+import { Button, Form, Modal, Col, Image } from 'react-bootstrap'
 import Swal from 'sweetalert2'
 import styles from './UpdateRecordModal.module.css'
 
@@ -121,7 +121,7 @@ export default function UpdateRecordButton({record, categories, setRecords}) {
 
     return(
         <>
-        <Button variant="outline-secondary" className={styles.modalButton} block onClick={showModal}><small>Edit</small></Button>
+        <Button variant="outline-secondary" className={styles.modalButton} block onClick={showModal}><Image className={styles.modalImg} src="/edit.svg"></Image></Button>
         <Modal show={show} onHide={closeModal} centered size="lg">
             <Modal.Header className={styles.modalHead} closeButton>
                 <Modal.Title>Update Record</Modal.Title>

@@ -1,15 +1,17 @@
 import { useContext } from 'react'
 import UserContext from '../UserContext'
 import Link from 'next/link'
-import { Navbar, Nav } from 'react-bootstrap'
+import { Navbar, Nav, Image } from 'react-bootstrap'
 
 export default function NavBar() {
     const { user } = useContext(UserContext)
 
     return(
     <Navbar expand="lg" collapseOnSelect>
-        <Link href="/">
-            <a className="navbar-brand">Budget Tracker</a>
+        <Link href="/home">
+            <a className="navbar-brand">
+                <Image className="logo" src="logo.svg" />Bookkeepr
+            </a>
         </Link>
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">

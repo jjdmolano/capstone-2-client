@@ -47,8 +47,8 @@ export default function register() {
                 })
                 .then((result) => {
                     result.dismiss === Swal.DismissReason.timer
-                    ? Router.push('/login')
-                    : Router.push('/login')
+                    ? Router.push('/')
+                    : Router.push('/')
                 })
             : Router.push('/error')
         })
